@@ -1,30 +1,20 @@
-import { Company } from "../models/company.model.js";
-import getDataUri from "../utils/datauri.js";
-
-export const registerCompany = async (req, res) => {
+import { Company } from "../models/compnay.model.js";
+export const registerCompnay = async (req, res) => {
   try {
-    const { companyName } = req.body;
+    const { company } = req.body;
     if (!companyName) {
-      return res.status(401).json({
-        message: "Company name is required",
-        success: false,
-      });
+      return res.status(400).json({ message: "compnay name is required" });
     }
-    let company = await Company.findOne({ name: companyName });
+    let compnay = await Company.findOne({ name: companyName });
     if (company) {
-      return res.status(401).json({
-        message: "Company already exists",
-        success: false,
-      });
+      return res.status(400).json({ message: "Compnay already exists" });
     }
     company = await Company.create({
       name: companyName,
-      userId: req.id,
+      userId: req.user.id,
     });
     return res.status(201).json({
-      message: "Company registered successfully.",
-      company,
-      success: true,
+      message: "Compnay created successfully",
     });
   } catch (error) {
     console.log(error);
@@ -33,21 +23,16 @@ export const registerCompany = async (req, res) => {
 
 export const getAllCompanies = async (req, res) => {
   try {
-    const userId = req.id; // loggedin user id
+    const userId = req.id;
     const companies = await Company.find({ userId });
     if (!companies) {
-      return res.status(404).json({ message: "No companies found" });
+      return res.status(404).json({ message: "No companies found " });
     }
-    return res.status(200).json({
-      companies,
-      success: true,
-    });
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 
-//get company by id
 export const getCompanyById = async (req, res) => {
   try {
     const companyId = req.params.id;
@@ -61,15 +46,14 @@ export const getCompanyById = async (req, res) => {
   }
 };
 
-//update company details
 export const updateCompany = async (req, res) => {
   try {
     const { name, description, website, location } = req.body;
     const file = req.file;
     //cloudinary
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-    const logo = cloudResponse.secure_url;
+    // const fileUri = getDataUri(file);
+    // const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+    // const logo = cloudResponse.secure_url;
 
     const updateData = { name, description, website, location, logo };
 
