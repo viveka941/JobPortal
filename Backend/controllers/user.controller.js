@@ -1,11 +1,11 @@
-import { User } from "../models/user.model";
+import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   try {
-    const { fullName, email, phoneNumber, role } = req.body;
-    if (!fullName || !email || !phoneNumber || !role) {
+    const { fullName, email, phoneNumber,password, role } = req.body;
+    if (!fullName || !email || !phoneNumber||!password || !role) {
       return res
         .status(404)
         .json({ message: "Missing required fiels", success: "false" });
@@ -26,8 +26,11 @@ export const register = async (req, res) => {
       password: hashedPassword,
       role,
     });
+    await newUser.save();
     return res.status(200).json({
-      message: `Account created successfully ${fullName}`,
+      message: `Account created successfully for ${fullName}`,
+      success: true,
+      user: { fullName, email, phoneNumber, role },
     });
   } catch (error) {
     console.error(error);
@@ -72,7 +75,7 @@ export const login = async (req, res) => {
     const tokenData = {
       userId: user._id,
     };
-    const token = await jwt.sign(tokenData, process.env.JWT_SECRET, {
+    const token =  jwt.sign(tokenData, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
     user = {
