@@ -4,6 +4,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import connectDB from './utils/db.js'
 import userRouter from './routes/user.route.js'
+import companyRouter from './routes/company.route.js'
 const app = express()
 
 
@@ -24,6 +25,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 // all api 
 app.use("/api/users",userRouter)
+app.use("/api/company", companyRouter);
 
 
 const PORT =process.env.PORT|| 8001;
