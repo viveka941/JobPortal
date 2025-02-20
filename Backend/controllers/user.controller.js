@@ -4,8 +4,8 @@ import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   try {
-    const { fullName, email, phoneNumber,password, role } = req.body;
-    if (!fullName || !email || !phoneNumber||!password || !role) {
+    const { fullName, email, phoneNumber, password, role } = req.body;
+    if (!fullName || !email || !phoneNumber || !password || !role) {
       return res
         .status(404)
         .json({ message: "Missing required fiels", success: "false" });
@@ -75,7 +75,7 @@ export const login = async (req, res) => {
     const tokenData = {
       userId: user._id,
     };
-    const token =  jwt.sign(tokenData, process.env.JWT_SECRET, {
+    const token = jwt.sign(tokenData, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
     user = {
@@ -97,8 +97,7 @@ export const login = async (req, res) => {
       .json({
         message: `Welcom back ${user.fullName}`,
         user,
-        success: true
-        
+        success: true,
       });
   } catch (error) {
     console.error(error);
@@ -109,50 +108,122 @@ export const login = async (req, res) => {
   }
 };
 
-export const logout = (req,res)=>{
-  try{
-    return res.status(200).cookie("token","", {maxAge:0}).json({
-      message:"Logged out successfull",
-      success : true,
-    })
-  }catch(error){
+export const logout = (req, res) => {
+  try {
+    return res.status(200).cookie("token", "", { maxAge: 0 }).json({
+      message: "Logged out successfull",
+      success: true,
+    });
+  } catch (error) {
     console.error(500).json({
       message: "Sever Error logout fields",
       success: false,
     });
   }
-}
+};
+
+// export const updateProfile = async (req, res) => {
+//   try {
+//     const { fullName, email, phoneNumber, bio, skills } = req.body;
+
+//     // cloudinary uploads
+//     let skillsArray;
+//     if (skills) {
+//        skillsArray = skills.split(",");
+//     }
+
+//     const userId = req.id; // middleware authentication
+//     let user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({
+//         message: "User not found",
+//         success: false,
+//       });
+//     }
+//     // update database
+//     if (fullName) {
+//       user.fullName = fullName;
+//     }
+//     if (email) {
+//       user.email = email;
+//     }
+//     if (phoneNumber) {
+//       user.phoneNumber = phoneNumber;
+//     }
+//     if (bio) {
+//       user.profile.bio = bio;
+//     }
+//     if (skills) {
+//       user.profile.skills = skillsArray;
+//     }
+
+//     user.fullName = fullName;
+//     user.email = email;
+//     user.phoneNumber = phoneNumber;
+//     user.bio = bio;
+//     user.skills = skillsArray;
+
+//     await user.save();
+//     user = {
+//       _id: user._id,
+//       fullName: user.fullName,
+//       email: user.email,
+//       phoneNumber: user.phoneNumber,
+//       role: user.role,
+//       profile: user.profile,
+//     };
+//     return res.status(200).json({
+//       message: "Profile updated successfully",
+//       user,
+//       success: false,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({
+//       message: "Sever error updationg profile ",
+//       success: false,
+//     });
+//   }
+// };
 
 
-export const updateProfile = async(req,res)=>{
+export const updateProfile = async (req, res) => {
+  try {
+    console.log("User ID:", req.id); // Debugging
 
-  try{
-    const {fullName, email, phoneNumber, bio, skills} = req.body
-    if(!fullName ||! email||! phoneNumber ||! bio||! skills){
-      const file = req.file;
-      return res.status(404).json({
-        message:"Missing required fields",
-        success : false
-      })
+    const { fullName, email, phoneNumber, bio, skills } = req.body;
+
+    // Cloudinary uploads (if any)
+    let skillsArray;
+    if (skills) {
+      skillsArray = skills.split(","); // Corrected
     }
 
-    // cloudinary uploads
-    const skillsArray = skills.split(',')
-    const userId = req.id// middleware authentication
+    const userId = req.id; // Authentication middleware should set this
     let user = await User.findById(userId);
-    if(!user){
+
+    if (!user) {
       return res.status(404).json({
         message: "User not found",
-        success: false
-      })
+        success: false,
+      });
     }
-    user.fullName = fullName;
-    user.email = email;
-    user.phoneNumber = phoneNumber;
-    user.bio = bio;
-    user.skills = skillsArray
+
+    // Ensure profile object exists
+    if (!user.profile) {
+      user.profile = {};
+    }
+
+    // Update database fields
+    if (fullName) user.fullName = fullName;
+    if (email) user.email = email;
+    if (phoneNumber) user.phoneNumber = phoneNumber;
+    if (bio) user.profile.bio = bio;
+    if (skillsArray) user.profile.skills = skillsArray;
 
     await user.save();
+
+    // Return only necessary user data
     user = {
       _id: user._id,
       fullName: user.fullName,
@@ -161,17 +232,17 @@ export const updateProfile = async(req,res)=>{
       role: user.role,
       profile: user.profile,
     };
-     return res.status(200).json({
-       message: "Profile updated successfully",
-       user,
-       success: false,
-     });
 
-  }catch(error){
-    console.error(error)
+    return res.status(200).json({
+      message: "Profile updated successfully",
+      user,
+      success: true, // Fixed success flag
+    });
+  } catch (error) {
+    console.error("Update Profile Error:", error); // Log actual error
     res.status(500).json({
-      message: "Sever error updationg profile "
-      ,success: false
-    })
+      message: "Server error updating profile",
+      success: false,
+    });
   }
-}
+};
