@@ -35,7 +35,7 @@ export const register = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      message: "Server error register fields",
+      message: "Server error while registering user",
       success: false,
     });
   }
@@ -96,6 +96,9 @@ export const login = async (req, res) => {
       })
       .json({
         message: `Welcom back ${user.fullName}`,
+        user,
+        success: true
+        
       });
   } catch (error) {
     console.error(error);
