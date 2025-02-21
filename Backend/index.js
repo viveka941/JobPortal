@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import connectDB from './utils/db.js'
 import userRouter from './routes/user.route.js'
 import companyRouter from './routes/company.route.js'
+import jobRoute from "./routes/job.route.js"
 const app = express()
 
 
@@ -26,6 +27,7 @@ app.use(cors(corsOptions))
 // all api 
 app.use("/api/users",userRouter)
 app.use("/api/company", companyRouter);
+app.use("/api/job", jobRoute)
 
 
 const PORT =process.env.PORT|| 8001;

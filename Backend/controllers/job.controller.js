@@ -1,4 +1,4 @@
-import { Job } from "../models/job.model";
+import { Job } from "../models/job.model.js";
 // Admin job post
 export const postJob = async (req, res) => {
   try {
@@ -6,78 +6,77 @@ export const postJob = async (req, res) => {
       title,
       description,
       requirements,
-      location,
       salary,
+      location,
       jobType,
-      compnayId,
-      position,
       experience,
+      position,
+      companyId,
     } = req.body;
     const userId = req.id;
+
     if (
       !title ||
       !description ||
       !requirements ||
-      !location ||
       !salary ||
+      !location ||
       !jobType ||
-      !compnayId ||
+      !experience ||
       !position ||
-      !experience
+      !companyId
     ) {
-      return res
-        .status(400)
-        .json({ message: "Please fill all the fields", success: false });
+      return res.status(400).json({
+        message: "All fields are required",
+        success: false,
+      });
     }
-    const job = await createImagesBitmap({
+    const job = await Job.create({
       title,
       description,
       requirements: requirements.split(","),
-      location,
       salary: Number(salary),
+      location,
       jobType,
-      company: compnayId,
-      position,
       experienceLevel: experience,
+      position,
+      company: companyId,
       created_by: userId,
     });
-    return res.status(201).json({
-      message: "Job posted successfully",
-      status: true,
+    res.status(201).json({
+      message: "Job posted successfully.",
       job,
+      status: true,
     });
   } catch (error) {
     console.error(error);
+    return res.status(500).json({ message: "Server Error", status: false });
   }
 };
+
 // Users
 export const getAllJobs = async (req, res) => {
   try {
     const keyword = req.query.keyword || "";
     const query = {
       $or: [
-        { title: { $regex: keyword, $option: "i" } },
-        { description: { $regex: keyword, $option: "i" } },
-        { requirements: { $regex: keyword, $option: "i" } },
-        { location: { $regex: keyword, $option: "i" } },
-        { jobType: { $regex: keyword, $option: "i" } },
-        { position: { $regex: keyword, $option: "i" } },
+        { title: { $regex: keyword, $options: "i" } },
+        { description: { $regex: keyword, $options: "i" } },
       ],
     };
-    const jobs = await Job.find(query);
+    const jobs = await Job.find(query)
+      .populate({
+        path: "company",
+      })
+      .sort({ createdAt: -1 });
+
     if (!jobs) {
-      return res.status(404).json({
-        message: "No jobs found",
-        status: false,
-      });
+      return res.status(404).json({ message: "No jobs found", status: false });
     }
     return res.status(200).json({ jobs, status: true });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({
-      message: "Sever error ",
-      status: false,
-    });
+    return res.status(500).json({ message: "Server Error", status: false });
   }
 };
 
@@ -112,7 +111,7 @@ export const getAdminJob = async (req, res) => {
         status: false,
       });
     }
-     return res.status(200).json({ job, status: true });
+     return res.status(200).json({ jobs, status: true });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
