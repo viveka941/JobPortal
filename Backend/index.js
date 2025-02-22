@@ -6,6 +6,7 @@ import connectDB from './utils/db.js'
 import userRouter from './routes/user.route.js'
 import companyRouter from './routes/company.route.js'
 import jobRoute from "./routes/job.route.js"
+import applicationRoute from "./routes/application.route.js"
 const app = express()
 
 
@@ -28,6 +29,7 @@ app.use(cors(corsOptions))
 app.use("/api/users",userRouter)
 app.use("/api/company", companyRouter);
 app.use("/api/job", jobRoute)
+app.use("/api/application",applicationRoute)
 
 
 const PORT =process.env.PORT|| 8001;
