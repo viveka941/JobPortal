@@ -47,27 +47,23 @@ export const applyJob = async (req, res) => {
 export const getAppliedJobs = async (req, res) => {
   try {
     const userId = req.id;
-    const applications = await Application.find({
-      applicant: userId,
-    })
+    const application = await Application.find({ applicant: userId })
       .sort({ createdAt: -1 })
       .populate({
         path: "job",
         options: { sort: { createdAt: -1 } },
         populate: { path: "company", options: { sort: { createdAt: -1 } } },
       });
-    if (!applications) {
-      return res.status(404).json({
-        message: "No applicatoins found",
-        success: false,
-      });
+    if (!application) {
+      return res
+        .status(404)
+        .json({ message: "No applications found", success: false });
     }
+
+    return res.status(200).json({ application, success: true });
   } catch (error) {
     console.error(error);
-    res.status(500).json({
-      message: "Sever error",
-      success: false,
-    });
+    res.status(500).json({ message: "Server error", success: false });
   }
 };
 
@@ -97,39 +93,35 @@ export const getApplicants = async (req, res) => {
 };
 
 
-export const updateStatus = async(req,res)=>{
+export const updateStatus = async (req, res) => {
   try {
-    const {status}= req.params;
+    const { status } = req.body;
     const applicationId = req.params.id;
-    if(!status){
+    if (!status) {
       return res.status(400).json({
-        message:"Invalid status",
-        success: false
-      })
+        message: "status is required",
+        success: false,
+      });
     }
-    // find the application by applicant id
-    const application = await Application.findById({
-      _id: applicationId
-    })
-    if(!application){
+
+    // find the application by applicantion id
+    const application = await Application.findOne({ _id: applicationId });
+    if (!application) {
       return res.status(404).json({
-        message:"Application not found",
-        success: false
-      })
+        message: "Application not found.",
+        success: false,
+      });
     }
-    //update the status 
+
+    // update the status
     application.status = status.toLowerCase();
     await application.save();
 
-    return res.status(200).json({
-      message: "Application status updated",
-      success: true
-    })
+    return res
+      .status(200)
+      .json({ message: "Application status updated", success: true });
   } catch (error) {
-     console.error(error);
-     res.status(500).json({
-       message: "Sever error",
-       success: false,
-     });
+    console.error(error);
+    res.status(500).json({ message: "Server error", success: false });
   }
-}
+};
