@@ -3,47 +3,45 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "../utils/data";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../redux/authSlice";
 
 export default function Login() {
-  const [input,setInput]=useState({
-    fullName:"",
-    email:"",
-    password:"",
-    role:""
+  const [input, setInput] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    role: "",
+  });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.auth);
+  const changeEventHandler = (e) => {
+    const { name, value } = e.target;
+    setInput({ ...input, [name]: value });
+  };
 
-  })
-  const navigate = useNavigate()
-  const changeEventHandler = (e) =>{
-    const {name,value} = e.target
-    setInput({...input,[name]:value})
-  }
- 
-   const submitHandler = async (e) => {
-     e.preventDefault();
-     console.log(input);
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log(input);
 
-    
+    try {
+      dispatch(setLoading(true));
+      const res = await axios.post(`${USER_API_ENDPOINT}/login`, input, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
 
-   
-
-     try {
-       const res = await axios.post(
-         `${USER_API_ENDPOINT}/login`,
-         input,
-         {
-           headers: { "Content-Type":"application/json" },
-           withCredentials: true,
-         }
-       );
-
-       if (res.data.success) {
-         console.log(res.data.message);
-         navigate("/");
-       }
-     } catch (error) {
-       console.error(error.response?.data?.message || error.message);
-     }
-   };
+      if (res.data.success) {
+        console.log(res.data.message);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error.response?.data?.message || error.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
   return (
     <div>
       <Navbar />
@@ -97,10 +95,17 @@ export default function Login() {
               />
             </div>
           </div>
+          {loading ? (
+            <button>Loading...</button>
+          ) : (
+            <button
+              type="submit"
+              className="block w-full py-3 text-white bg-prmiary hover:bg-prmiary/90 rounded-md bg-blue-600"
+            >
+              Login now
+            </button>
+          )}
 
-          <button type="submit" className="block w-full py-3 text-white bg-prmiary hover:bg-prmiary/90 rounded-md bg-blue-600">
-            Login now
-          </button>
           <p>
             I don't have an account <Link to="/register">Register</Link>
           </p>
