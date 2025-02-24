@@ -21,7 +21,7 @@ export default function Navbar() {
             <li className="hover:text-blue-600 transition duration-200">
               <Link to="/login">Login</Link>
             </li>
-            <li className="hover:text-blue-600 transition duration-200">Job</li>
+            <Link to={"/jobs"} className="hover:text-blue-600 transition duration-200">Job</Link>
             <li className="hover:text-blue-600 transition duration-200">
               <Link to="/register"> Register</Link>
             </li>
