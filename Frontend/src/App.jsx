@@ -9,6 +9,7 @@ import TermsofService from "./component/components/TermsofService";
 import PrivacyPolicy from "./component/components/PrivacyPolicy";
 import Jobs from "./component/components/Jobs";
 import Browse from "./component/components/Browse";
+import UserProfileShow from "./component/authentication/UserProfileShow";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -32,6 +33,9 @@ function App() {
     },{
       path:"/browse",
       element:<Browse/>
+    },{
+      path:"/profile",
+      element:<UserProfileShow/>
     }
   ]);
   return <RouterProvider router={appRouter}></RouterProvider>;

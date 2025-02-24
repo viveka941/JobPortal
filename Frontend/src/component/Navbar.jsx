@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import UserProfile from "./UserProfile"; // Import the UserProfile component
 
 export default function Navbar() {
   return (
@@ -16,25 +17,22 @@ export default function Navbar() {
         <div>
           <ul className="flex items-center space-x-6 font-medium text-gray-700">
             <li className="hover:text-blue-600 transition duration-200">
-              <Link to="/">home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li className="hover:text-blue-600 transition duration-200">
               <Link to="/browse">Browse</Link>
             </li>
             <li className="hover:text-blue-600 transition duration-200">
-              <Link to="/login">Login</Link>
+              <Link to="/jobs">Jobs</Link>
             </li>
-            <Link
-              to={"/jobs"}
-              className="hover:text-blue-600 transition duration-200"
-            >
-              Job
-            </Link>
             <li className="hover:text-blue-600 transition duration-200">
-              <Link to="/register"> Register</Link>
+              <Link to="/register">Register</Link>
             </li>
           </ul>
         </div>
+
+        {/* User Profile Section */}
+        <UserProfile />
       </div>
     </div>
   );

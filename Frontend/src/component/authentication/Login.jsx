@@ -4,7 +4,7 @@ import Navbar from "../Navbar";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "../utils/data";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../redux/authSlice";
+import { setLoading, setUser } from "../redux/authSlice";
 
 export default function Login() {
   const [input, setInput] = useState({
@@ -13,9 +13,11 @@ export default function Login() {
     password: "",
     role: "",
   });
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector((store) => store.auth);
+
   const changeEventHandler = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
@@ -33,7 +35,7 @@ export default function Login() {
       });
 
       if (res.data.success) {
-        console.log(res.data.message);
+        dispatch(setUser(res.data.user));
         navigate("/");
       }
     } catch (error) {
@@ -42,74 +44,98 @@ export default function Login() {
       dispatch(setLoading(false));
     }
   };
+
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100 flex flex-col">
       <Navbar />
-      <div>
-        <form onSubmit={submitHandler}>
-          <h1>Login</h1>
+      <div className="flex justify-center items-center flex-1">
+        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+          <h1 className="text-2xl font-semibold text-center text-gray-800 mb-6">
+            Login to Your Account
+          </h1>
 
-          <div>
-            <label htmlFor="">Email </label>
-            <input
-              type="email"
-              value={input.email}
-              name="email"
-              onChange={changeEventHandler}
-              placeholder="Enter your name"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="">Password</label>
-            <input
-              type="password"
-              value={input.password}
-              name="password"
-              onChange={changeEventHandler}
-              placeholder="Enter you name"
-            />
-          </div>
-          <div>
-            <label htmlFor="">Role </label>
+          <form onSubmit={submitHandler} className="space-y-4">
+            {/* Email */}
             <div>
-              <label htmlFor="">Student</label>
+              <label className="block text-gray-700 font-medium">Email</label>
               <input
-                type="radio"
-                name="role"
-                value="Student"
-                checked={input.role === "Student"}
+                type="email"
+                value={input.email}
+                name="email"
                 onChange={changeEventHandler}
-                className="cursor-pointer"
+                placeholder="Enter your email"
+                className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
               />
             </div>
+
+            {/* Password */}
             <div>
-              <label htmlFor="">Recruiter </label>
+              <label className="block text-gray-700 font-medium">
+                Password
+              </label>
               <input
-                type="radio"
-                name="role"
-                checked={input.role === "Recruiter"}
+                type="password"
+                value={input.password}
+                name="password"
                 onChange={changeEventHandler}
-                value="Recruiter"
-                className="cursor-pointer"
+                placeholder="Enter your password"
+                className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
               />
             </div>
-          </div>
-          {loading ? (
-            <button>Loading...</button>
-          ) : (
+
+            {/* Role Selection */}
+            <div>
+              <label className="block text-gray-700 font-medium">Role</label>
+              <div className="flex gap-4 mt-2">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="Student"
+                    checked={input.role === "Student"}
+                    onChange={changeEventHandler}
+                    className="w-4 h-4 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                  />
+                  <span className="ml-2 text-gray-700">Student</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="Recruiter"
+                    checked={input.role === "Recruiter"}
+                    onChange={changeEventHandler}
+                    className="w-4 h-4 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                  />
+                  <span className="ml-2 text-gray-700">Recruiter</span>
+                </label>
+              </div>
+            </div>
+
+            {/* Submit Button */}
             <button
               type="submit"
-              className="block w-full py-3 text-white bg-prmiary hover:bg-prmiary/90 rounded-md bg-blue-600"
+              className={`w-full py-3 text-white font-medium rounded-lg transition ${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-700"
+              }`}
+              disabled={loading}
             >
-              Login now
+              {loading ? "Loading..." : "Login Now"}
             </button>
-          )}
 
-          <p>
-            I don't have an account <Link to="/register">Register</Link>
-          </p>
-        </form>
+            {/* Register Link */}
+            <p className="text-center text-gray-600">
+              Don't have an account?{" "}
+              <Link to="/register" className="text-blue-600 hover:underline">
+                Register
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );
