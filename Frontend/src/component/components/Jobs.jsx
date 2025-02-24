@@ -7,24 +7,24 @@ const jobsArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Jobs() {
   return (
-    <div>
+    <div className="h-screen flex flex-col">
       <Navbar />
 
-      <div className="max-w-7xl mx-auto mt-5">
-        <div className="flex gap-5">
-          <div className="w-20">
-            <FilterCard />
-          </div>
+      <div className="max-w-7xl mx-auto mt-5 flex gap-5 flex-1">
+        {/* Sidebar (FilterCard) - Fixed */}
+        <div className="w-72">
+          <FilterCard />
+        </div>
 
+        {/* Job Listings - Scrollable */}
+        <div className="flex-1 overflow-y-auto h-[calc(100vh-80px)] pb-5">
           {jobsArray.length <= 0 ? (
-            <span className="">Job not found</span>
+            <span className="text-gray-500 text-lg">Job not found</span>
           ) : (
-            <div className="flex-1 h-[hhvh] overflow-auto pb-5">
-              <div className="grid grid-cols-3 gap-4">
-                {jobsArray.map((job, index) => (
-                  <Job />
-                ))}
-              </div>
+            <div className="grid grid-cols-3 gap-4">
+              {jobsArray.map((job, index) => (
+                <Job key={index} />
+              ))}
             </div>
           )}
         </div>
