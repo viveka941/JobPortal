@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Description() {
-  const isApplied = true; // ✅ Corrected variable name
+  const isApplied = true;
 
   return (
     <div className="p-6">
@@ -19,17 +19,12 @@ export default function Description() {
         </div>
       </div>
 
-      {/* Job Title & Description */}
+      {/* Job Title & Details */}
       <div className="mt-4">
         <h2 className="text-xl font-bold text-gray-900">Job Title</h2>
-        <p className="text-gray-600 text-sm mt-1">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. At aperiam
-          odio possimus adipisci asperiores non iure voluptatem fugiat omnis
-          repellat.
-        </p>
       </div>
 
-      {/* Job Details (Salary, Location, etc.) */}
+      {/* Job Info Badges */}
       <div className="flex flex-wrap gap-2 mt-4">
         <span className="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">
           🏢 Full Time
@@ -41,7 +36,7 @@ export default function Description() {
           🌍 Remote
         </span>
         <span className="bg-purple-100 text-purple-600 text-xs font-medium px-3 py-1 rounded-full">
-          Last date 20/2/25
+          Last date: 20/2/25
         </span>
       </div>
 
@@ -56,6 +51,33 @@ export default function Description() {
       >
         {isApplied ? "Already Applied" : "Apply Now"}
       </button>
+
+      {/* Job Description */}
+      <div className="mt-6 bg-gray-100 p-4 rounded-lg">
+        <h2 className="text-lg font-semibold text-gray-800">Job Description</h2>
+        <div className="mt-2 space-y-2 text-gray-700">
+          <p>
+            <strong>Role:</strong>{" "}
+            <span className="text-gray-900">Software Engineer</span>
+          </p>
+          <p>
+            <strong>Location:</strong>{" "}
+            <span className="text-gray-900">Remote</span>
+          </p>
+          <p>
+            <strong>Experience:</strong>{" "}
+            <span className="text-gray-900">4 years</span>
+          </p>
+          <p>
+            <strong>Job Type:</strong>{" "}
+            <span className="text-gray-900">Full Time</span>
+          </p>
+          <p>
+            <strong>Total Applicants:</strong>{" "}
+            <span className="text-gray-900">100</span>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
