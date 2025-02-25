@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Navbar from "../Navbar";
+import ApplidJob from "./ApplidJob";
 
 export default function UserProfileShow() {
   const { user } = useSelector((store) => store.auth);
@@ -105,6 +106,11 @@ export default function UserProfileShow() {
           </div>
         </div>
       </div>
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl">
+        <div className="text-md font-bold">Applid Jobs</div>
+      </div>
+      {/* add application table  */}
+      <ApplidJob />
     </div>
   );
 }
