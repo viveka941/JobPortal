@@ -10,6 +10,7 @@ import PrivacyPolicy from "./component/components/PrivacyPolicy";
 import Jobs from "./component/components/Jobs";
 import Browse from "./component/components/Browse";
 import UserProfileShow from "./component/authentication/UserProfileShow";
+import Description from "./component/components/Description";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -28,15 +29,21 @@ function App() {
     { path: "/termsofService", element: <TermsofService /> },
     { path: "PrivacyPolicy", element: <PrivacyPolicy /> },
     {
-      path:"/jobs",
-      element:<Jobs/>
-    },{
-      path:"/browse",
-      element:<Browse/>
-    },{
-      path:"/profile",
-      element:<UserProfileShow/>
-    }
+      path: "/jobs",
+      element: <Jobs />,
+    },
+    {
+      path:"/description/:jobId",
+      element:<Description/>
+    },
+    {
+      path: "/browse",
+      element: <Browse />,
+    },
+    {
+      path: "/profile",
+      element: <UserProfileShow />,
+    },
   ]);
   return <RouterProvider router={appRouter}></RouterProvider>;
 }

@@ -1,20 +1,10 @@
 import React from "react";
-import { BsBookmarkPlusFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
 
-export default function Job() {
-  const navigate = useNavigate();
-  const jobId = "abdd";
+export default function Description() {
+  const isApplied = true; // ✅ Corrected variable name
+
   return (
-    <div className="max-w-lg mx-auto bg-white shadow-md hover:shadow-xl transition-all duration-300 rounded-lg p-6 border border-gray-200">
-      {/* Job Posting Time & Bookmark */}
-      <div className="flex justify-between items-center text-gray-500 text-sm">
-        <p>📅 3 Days Ago</p>
-        <button className="text-gray-700 hover:text-blue-600">
-          <BsBookmarkPlusFill size={20} />
-        </button>
-      </div>
-
+    <div className="p-6">
       {/* Company Logo & Details */}
       <div className="flex items-center space-x-4 mt-4">
         <img
@@ -50,27 +40,22 @@ export default function Job() {
         <span className="bg-purple-100 text-purple-600 text-xs font-medium px-3 py-1 rounded-full">
           🌍 Remote
         </span>
-        <br />
-        <button
-          onClick={() => {
-            navigate(`/description/${jobId}`); // ✅ Now this will work
-          }}
-          className="font-bold rounded-sm text-gray-500 hover:bg-gray-800"
-        >
-          Details
-        </button>
-
-        <button className="font-bold rounded-sm text-purple-500">
-          Save for later
-        </button>
+        <span className="bg-purple-100 text-purple-600 text-xs font-medium px-3 py-1 rounded-full">
+          Last date 20/2/25
+        </span>
       </div>
 
       {/* Apply Button */}
-      <div className="mt-5">
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition-all">
-          Apply Now
-        </button>
-      </div>
+      <button
+        className={`mt-4 w-full py-2 font-semibold text-white rounded-lg transition-all ${
+          isApplied
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-blue-600 hover:bg-blue-700"
+        }`}
+        disabled={isApplied}
+      >
+        {isApplied ? "Already Applied" : "Apply Now"}
+      </button>
     </div>
   );
 }
