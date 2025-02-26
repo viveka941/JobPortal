@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setUser } from "./redux/authSlice";
@@ -7,10 +7,26 @@ export default function UserProfile() {
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
   const [showDetails, setShowDetails] = useState(false);
+  const dropdownRef = useRef(null); // Reference for dropdown
 
   const handleLogout = () => {
     dispatch(setUser(null)); // Clears user from Redux state
   };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDetails(false);
+      }
+    }
+    if (showDetails) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showDetails]);
 
   return (
     <div className="relative">
@@ -29,7 +45,10 @@ export default function UserProfile() {
 
           {/* User Details Dropdown */}
           {showDetails && (
-            <div className="absolute top-12 left-0 bg-white shadow-lg rounded-lg p-4 w-64 z-50 border">
+            <div
+              ref={dropdownRef}
+              className="absolute top-12 left-0 bg-white shadow-lg rounded-lg p-4 w-64 z-50 border"
+            >
               <h2 className="text-lg font-semibold text-gray-800">
                 {user.fullName}
               </h2>
@@ -42,9 +61,11 @@ export default function UserProfile() {
               </p>
 
               {/* Profile Button */}
-              <button className="mt-4 w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
-               <Link to="/profile">Profile</Link>
-              </button>
+              <Link to="/profile">
+                <button className="mt-4 w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+                  Profile
+                </button>
+              </Link>
 
               {/* Logout Button */}
               <button

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Navbar from "../Navbar";
 import ApplidJob from "./ApplidJob";
+import EditProfileModel from "./EditProfileModel";
 
 export default function UserProfileShow() {
+ 
   const { user } = useSelector((store) => store.auth);
   const skills = [
     "JavaScript",
@@ -15,6 +17,7 @@ export default function UserProfileShow() {
     "CSS",
   ];
   const isResume = true; // Change this based on user data
+   const [open, setOpen] = useState(false);
   const resumeLink = "http://resume.com"; // Replace with actual user resume link
 
   return (
@@ -46,7 +49,7 @@ export default function UserProfileShow() {
           </div>
 
           {/* Edit Button */}
-          <button className="bg-gray-300 p-2 rounded-full hover:bg-gray-400 transition">
+          <button onClick={()=>setOpen(true)} className="bg-gray-300 p-2 rounded-full hover:bg-gray-400 transition">
             ✒️
           </button>
         </div>
@@ -111,6 +114,9 @@ export default function UserProfileShow() {
       </div>
       {/* add application table  */}
       <ApplidJob />
+
+      {/* edit profile model  */}
+      <EditProfileModel open={open} setOpen={setOpen}/>
     </div>
   );
 }
