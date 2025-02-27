@@ -1,8 +1,6 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import cloudinary from "../utils/cloud.js";
-
 
 export const register = async (req, res) => {
   try {
@@ -195,6 +193,7 @@ export const updateProfile = async (req, res) => {
     const { fullName, email, phoneNumber, bio, skills } = req.body;
     console.log(fullName, email, phoneNumber, bio, skills);
 
+    // Fetch user from the database
     const userId = req.id; // Authentication middleware should set this
     let user = await User.findById(userId);
 
@@ -210,23 +209,10 @@ export const updateProfile = async (req, res) => {
       user.profile = {};
     }
 
-    // Convert skills to the correct format (only if skills exist)
+    // Convert skills to the correct format
     let skillsArray = skills
       ? skills.split(",").map((skill) => ({ stype: skill.trim() }))
       : [];
-
-    // File upload handling
-    if (req.file) {
-      const fileUri = getDataUri(req.file);
-      const cloudinaryResponse = await cloudinary.uploader.upload(
-        fileUri.content
-      );
-
-      if (cloudinaryResponse && cloudinaryResponse.secure_url) {
-        user.profile.resume = cloudinaryResponse.secure_url;
-        user.profile.resumeOriginalName = req.file.originalname;
-      }
-    }
 
     // Update database fields
     if (fullName) user.fullName = fullName;
@@ -258,5 +244,4 @@ export const updateProfile = async (req, res) => {
     });
   }
 };
-
 
