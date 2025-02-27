@@ -15,7 +15,7 @@ export default function EditProfileModel({ open, setOpen }) {
     phoneNumber: user?.phoneNumber || "",
     bio: user?.bio || "",
     skills: user?.skills?.join(", ") || "", // Convert array to string
-    file: null,
+    file: user?.profile?.resume||null,
   });
 
   const handleChange = (e) => {

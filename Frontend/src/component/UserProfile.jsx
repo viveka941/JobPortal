@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { setUser } from "./redux/authSlice";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
+  const navigagte = useNavigate()
   const { user } = useSelector((store) => store.auth);
   const [showDetails, setShowDetails] = useState(false);
   const dropdownRef = useRef(null); // Reference for dropdown
 
   const handleLogout = () => {
     dispatch(setUser(null)); // Clears user from Redux state
+    navigagte("/login")
+    
   };
 
   // Close dropdown when clicking outside
