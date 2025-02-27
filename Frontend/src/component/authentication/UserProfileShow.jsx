@@ -7,15 +7,7 @@ import EditProfileModel from "./EditProfileModel";
 export default function UserProfileShow() {
  
   const { user } = useSelector((store) => store.auth);
-  const skills = [
-    "JavaScript",
-    "React",
-    "Node.js",
-    "Express",
-    "MongoDB",
-    "HTML",
-    "CSS",
-  ];
+
   const isResume = true; // Change this based on user data
    const [open, setOpen] = useState(false);
   const resumeLink = "http://resume.com"; // Replace with actual user resume link
@@ -40,16 +32,16 @@ export default function UserProfileShow() {
           {/* User Details */}
           <div className="flex-1">
             <h1 className="font-semibold text-2xl text-gray-800">
-              {user?.fullName || "Full Name"}
+              {user?.fullName}
             </h1>
-            <p className="text-gray-600">
-              {user?.bio ||
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi aut officia eveniet."}
-            </p>
+            <p className="text-gray-600">{user?.profile?.bio}</p>
           </div>
 
           {/* Edit Button */}
-          <button onClick={()=>setOpen(true)} className="bg-gray-300 p-2 rounded-full hover:bg-gray-400 transition">
+          <button
+            onClick={() => setOpen(true)}
+            className="bg-gray-300 p-2 rounded-full hover:bg-gray-400 transition"
+          >
             ✒️
           </button>
         </div>
@@ -57,16 +49,10 @@ export default function UserProfileShow() {
         {/* Contact Info */}
         <div className="mt-6 space-y-3">
           <div className="flex items-center gap-3 text-gray-700">
-            📧{" "}
-            <span className="font-medium">
-              {user?.email || "user@gmail.com"}
-            </span>
+            📧 <span className="font-medium">{user?.email}</span>
           </div>
           <div className="flex items-center gap-3 text-gray-700">
-            📞{" "}
-            <span className="font-medium">
-              {user?.phoneNumber || "9876543210"}
-            </span>
+            📞 <span className="font-medium">{user?.phoneNumber}</span>
           </div>
         </div>
 
@@ -74,13 +60,14 @@ export default function UserProfileShow() {
         <div className="mt-6">
           <h1 className="text-lg font-semibold">Skills</h1>
           <div className="flex flex-wrap gap-2 mt-2">
-            {skills.length > 0
-              ? skills.map((skill, index) => (
+            {user?.profile?.skills.length > 0
+              ? user?.profile?.skills.map((skill, index) => (
                   <span
                     key={index}
                     className="px-3 py-1 bg-gray-200 text-gray-700 rounded-md text-sm"
                   >
-                    {skill}
+                    {skill.stype}{" "}
+                    {/* Access the 'stype' property instead of rendering the object */}
                   </span>
                 ))
               : "NA"}
@@ -116,7 +103,7 @@ export default function UserProfileShow() {
       <ApplidJob />
 
       {/* edit profile model  */}
-      <EditProfileModel open={open} setOpen={setOpen}/>
+      <EditProfileModel open={open} setOpen={setOpen} />
     </div>
   );
 }

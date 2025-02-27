@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { USER_API_ENDPOINT } from "../utils/data";
+import { setUser } from "../redux/authSlice";
+import axios from "axios";
 
 export default function EditProfileModel({ open, setOpen }) {
   const [loading, setLoading] = useState(false);
   const { user } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     fullName: user?.fullName || "",
@@ -19,23 +23,48 @@ export default function EditProfileModel({ open, setOpen }) {
   };
 
   const handleFileHandler = (e) => {
-    const file = e.target.files?.[0]; // Corrected from `e.target.file`
+    const file = e.target.files?.[0];
     setFormData({ ...formData, file });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Updated Profile Data:", formData);
+    setLoading(true);
+
     const formDatas = new FormData();
-    formDatas.append("name", input.fullName);
-    formDatas.append("email", input.email);
-    formDatas.append("phone", input.phoneNumber);
-    formDatas.append("bio", input.bio);
-    formDatas.append("skills", input.skills);
-    if (input.file) {
-      formData.append("file", input.file);
+    formDatas.append("fullName", formData.fullName);
+    formDatas.append("email", formData.email);
+    formDatas.append("phoneNumber", formData.phoneNumber);
+    formDatas.append("bio", formData.bio);
+    formDatas.append("skills", formData.skills);
+    if (formData.file) {
+      formDatas.append("file", formData.file);
     }
-    setOpen(false);
+
+    try {
+      const res = await axios.post(
+        `${USER_API_ENDPOINT}/profile/update`,
+        formDatas,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+          withCredentials: true,
+        }
+      );
+
+      if (res.data.success) {
+        dispatch(setUser(res.data.user));
+        alert("Profile updated successfully!");
+      } else {
+        alert("Failed to update profile. Try again.");
+      }
+
+      setOpen(false);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!open) return null;
@@ -107,7 +136,7 @@ export default function EditProfileModel({ open, setOpen }) {
             <input
               type="file"
               name="file"
-              onChange={handleFileHandler} // Fixed function call
+              onChange={handleFileHandler}
               className="w-full p-2 border rounded"
             />
           </div>
@@ -117,14 +146,16 @@ export default function EditProfileModel({ open, setOpen }) {
               type="button"
               className="bg-gray-300 px-4 py-2 rounded"
               onClick={() => setOpen(false)}
+              disabled={loading}
             >
               Cancel
             </button>
             <button
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded"
+              disabled={loading}
             >
-              Save
+              {loading ? "Saving..." : "Save"}
             </button>
           </div>
         </form>

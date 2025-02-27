@@ -12,7 +12,7 @@ export default function LatestJobs() {
 
       <div className="grid grid-cols-3 gap-4 my-5">
         {randomJobs.map((job, index) => (
-          <JobCards></JobCards>
+          <JobCards key={index}></JobCards>
         ))}
       </div>
     </div>

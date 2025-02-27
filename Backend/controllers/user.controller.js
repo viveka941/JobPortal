@@ -186,19 +186,14 @@ export const logout = (req, res) => {
 //   }
 // };
 
-
 export const updateProfile = async (req, res) => {
   try {
     console.log("User ID:", req.id); // Debugging
 
     const { fullName, email, phoneNumber, bio, skills } = req.body;
+    console.log(fullName, email, phoneNumber, bio, skills);
 
-    // Cloudinary uploads (if any)
-    let skillsArray;
-    if (skills) {
-      skillsArray = skills.split(","); // Corrected
-    }
-
+    // Fetch user from the database
     const userId = req.id; // Authentication middleware should set this
     let user = await User.findById(userId);
 
@@ -214,29 +209,32 @@ export const updateProfile = async (req, res) => {
       user.profile = {};
     }
 
+    // Convert skills to the correct format
+    let skillsArray = skills
+      ? skills.split(",").map((skill) => ({ stype: skill.trim() }))
+      : [];
+
     // Update database fields
     if (fullName) user.fullName = fullName;
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
-    if (skillsArray) user.profile.skills = skillsArray;
+    if (skillsArray.length > 0) user.profile.skills = skillsArray;
 
     await user.save();
 
     // Return only necessary user data
-    user = {
-      _id: user._id,
-      fullName: user.fullName,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
-      role: user.role,
-      profile: user.profile,
-    };
-
     return res.status(200).json({
       message: "Profile updated successfully",
-      user,
-      success: true, // Fixed success flag
+      user: {
+        _id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        role: user.role,
+        profile: user.profile,
+      },
+      success: true,
     });
   } catch (error) {
     console.error("Update Profile Error:", error); // Log actual error
@@ -246,3 +244,4 @@ export const updateProfile = async (req, res) => {
     });
   }
 };
+
