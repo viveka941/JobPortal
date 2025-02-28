@@ -2,7 +2,7 @@ import React from "react";
 import { BsBookmarkPlusFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
-export default function Job() {
+export default function Job({job}) {
   const navigate = useNavigate();
   const jobId = "abdd";
   return (
@@ -24,31 +24,29 @@ export default function Job() {
           alt="Company Logo"
         />
         <div>
-          <h1 className="text-lg font-semibold text-gray-800">Company Name</h1>
-          <p className="text-gray-500 text-sm">🏢 India</p>
+          <h1 className="text-lg font-semibold text-gray-800">
+            {job?.company?.name}
+          </h1>
+          <p className="text-gray-500 text-sm">🏢 {job?.location}</p>
         </div>
       </div>
 
       {/* Job Title & Description */}
       <div className="mt-4">
-        <h2 className="text-xl font-bold text-gray-900">Job Title</h2>
-        <p className="text-gray-600 text-sm mt-1">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. At aperiam
-          odio possimus adipisci asperiores non iure voluptatem fugiat omnis
-          repellat.
-        </p>
+        <h2 className="text-xl font-bold text-gray-900">{job?.title}</h2>
+        <p className="text-gray-600 text-sm mt-1">{job?.description}</p>
       </div>
 
       {/* Job Details (Salary, Location, etc.) */}
       <div className="flex flex-wrap gap-2 mt-4">
         <span className="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">
-          🏢 Full Time
+          🏢 {job?.position || "N/A"} Positions
         </span>
         <span className="bg-green-100 text-green-600 text-xs font-medium px-3 py-1 rounded-full">
-          💰 10 LPA
+          💰 {job?.salary ? `${job.salary} LPA` : "Salary Not Disclosed"}
         </span>
         <span className="bg-purple-100 text-purple-600 text-xs font-medium px-3 py-1 rounded-full">
-          🌍 Remote
+          🌍 {job?.jobType || "Not Specified"}
         </span>
         <br />
         <button

@@ -2,10 +2,10 @@ import React from "react";
 import Navbar from "../Navbar";
 import FilterCard from "./FilterCard";
 import Job from "./Job";
-
-const jobsArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+import { useSelector } from "react-redux";
 
 export default function Jobs() {
+  const {allJobs} = useSelector((store)=>store.job)
   return (
     <div className="h-screen flex flex-col">
       <Navbar />
@@ -18,12 +18,12 @@ export default function Jobs() {
 
         {/* Job Listings - Scrollable */}
         <div className="flex-1 overflow-y-auto h-[calc(100vh-80px)] pb-5">
-          {jobsArray.length <= 0 ? (
+          {allJobs.length <= 0 ? (
             <span className="text-gray-500 text-lg">Job not found</span>
           ) : (
             <div className="grid grid-cols-3 gap-4">
-              {jobsArray.map((job, index) => (
-                <Job key={index} />
+              {allJobs.map((job, index) => (
+                <Job key={index} job={job} />
               ))}
             </div>
           )}
