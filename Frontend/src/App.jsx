@@ -11,6 +11,7 @@ import Jobs from "./component/components/Jobs";
 import Browse from "./component/components/Browse";
 import UserProfileShow from "./component/authentication/UserProfileShow";
 import Description from "./component/components/Description";
+import Companies from "./component/adminComponent/Companies";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -33,8 +34,8 @@ function App() {
       element: <Jobs />,
     },
     {
-      path:"/description/:jobId",
-      element:<Description/>
+      path: "/description/:jobId",
+      element: <Description />,
     },
     {
       path: "/browse",
@@ -43,6 +44,11 @@ function App() {
     {
       path: "/profile",
       element: <UserProfileShow />,
+    },
+
+    {
+      path: "/admin/companies",
+      element:<Companies/>
     },
   ]);
   return <RouterProvider router={appRouter}></RouterProvider>;
