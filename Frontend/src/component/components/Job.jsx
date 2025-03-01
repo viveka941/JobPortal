@@ -1,15 +1,25 @@
+import { current } from "@reduxjs/toolkit";
 import React from "react";
 import { BsBookmarkPlusFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 export default function Job({job}) {
   const navigate = useNavigate();
-  const jobId = "abdd";
+  const daysAgo = (mongodbTime)=>{
+    const today = new Date();
+    const postedDate = new Date(mongodbTime);
+    const diffTime = Math.abs(today - postedDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+     
+  }
+ 
+  
   return (
     <div className="max-w-lg mx-auto bg-white shadow-md hover:shadow-xl transition-all duration-300 rounded-lg p-6 border border-gray-200">
       {/* Job Posting Time & Bookmark */}
       <div className="flex justify-between items-center text-gray-500 text-sm">
-        <p>📅 3 Days Ago</p>
+        <p>📅 {daysAgo(job?.createdAt)===0 ? "Today": `${daysAgo(job?.createdAt)} days ago`} </p>
         <button className="text-gray-700 hover:text-blue-600">
           <BsBookmarkPlusFill size={20} />
         </button>
@@ -51,7 +61,7 @@ export default function Job({job}) {
         <br />
         <button
           onClick={() => {
-            navigate(`/description/${jobId}`); // ✅ Now this will work
+            navigate(`/description/${job?._id}`); // ✅ Now this will work
           }}
           className="font-bold rounded-sm text-gray-500 hover:bg-gray-800"
         >

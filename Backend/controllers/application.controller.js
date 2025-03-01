@@ -10,7 +10,7 @@ export const applyJob = async (req, res) => {
         .status(400)
         .json({ message: "Invalid job id", success: false });
     }
-    // check if the user already has applied for this job
+    
     const existingApplication = await Application.findOne({
       job: jobId,
       applicant: userId,
