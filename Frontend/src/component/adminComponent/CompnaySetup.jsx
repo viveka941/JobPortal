@@ -5,8 +5,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Navbar from "../Navbar.jsx";
 
+import UseGetCompanyById from "../../hook/UseGetCompanyById.jsx";
+
 const CompanySetup = () => {
   const params = useParams();
+  UseGetCompanyById(params.id);
   const [input, setInput] = useState({
     name: "",
     description: "",

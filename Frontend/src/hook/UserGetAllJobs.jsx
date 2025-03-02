@@ -22,9 +22,5 @@ export default function UserGetAllJobs() {
     };
     fethAllJobs();
   }, [dispatch]);
-  return (
-    <div>
-      
-    </div>
-  )
+ 
 }
