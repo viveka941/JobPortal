@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function CompanyTable() {
   const { companies = [], searchCompaniesByText = "" } = useSelector(
@@ -7,6 +8,7 @@ export default function CompanyTable() {
   ); // Ensure default values to prevent errors
 
   const [filteredCompanies, setFilteredCompanies] = useState(companies);
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (companies.length > 0) {
@@ -59,8 +61,8 @@ export default function CompanyTable() {
                   </a>
                 </td>
                 <td className="p-2 border">
-                  <button className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600">
-                    Delete
+                  <button onClick={()=>navigate(`/admin/companies/${company.id}`)} className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-red-600">
+                    Edit 
                   </button>
                 </td>
               </tr>
