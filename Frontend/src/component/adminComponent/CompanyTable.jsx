@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function CompanyTable() {
-  const { companies = [] } = useSelector((store) => store.company || {}); // Ensure default value
+  const { companies = [], searchCompaniesByText = "" } = useSelector(
+    (store) => store.company
+  ); // Ensure default values to prevent errors
+
+  const [filteredCompanies, setFilteredCompanies] = useState(companies);
+
+  useEffect(() => {
+    if (companies.length > 0) {
+      const filtered = companies.filter((company) =>
+        company.name.toLowerCase().includes(searchCompaniesByText.toLowerCase())
+      );
+      setFilteredCompanies(filtered); // ✅ Update state
+    } else {
+      setFilteredCompanies([]); // ✅ Reset if no companies
+    }
+  }, [companies, searchCompaniesByText]);
 
   return (
     <div className="p-4">
@@ -16,14 +31,14 @@ export default function CompanyTable() {
           </tr>
         </thead>
         <tbody>
-          {companies.length === 0 ? (
+          {filteredCompanies.length === 0 ? (
             <tr>
               <td colSpan="4" className="text-center p-4 text-gray-500">
                 No Company Found
               </td>
             </tr>
           ) : (
-            companies.map((company, index) => (
+            filteredCompanies.map((company, index) => (
               <tr key={index} className="text-center border-t hover:bg-gray-50">
                 <td className="p-2 border">
                   <img

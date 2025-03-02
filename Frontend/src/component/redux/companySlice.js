@@ -4,7 +4,8 @@ const companySlice = createSlice({
   name: "company",
   initialState: {
     singleCompany: null, // Fixed typo
-    companies:[],
+    companies: [],
+    searchCompaniesByText: "",
   },
   reducers: {
     setSingleCompany: (state, action) => {
@@ -14,8 +15,12 @@ const companySlice = createSlice({
     setCompanies: (state, action) => {
       state.companies = action.payload;
     },
+    searchCompaniesByText:(state,action)=>{
+      state.searchCompaniesByText = action.payload;
+    }
   },
 });
 
-export const { setSingleCompany, setCompanies } = companySlice.actions; // Fixed typo
+export const { setSingleCompany, setCompanies, searchCompaniesByText } =
+  companySlice.actions; // Fixed typo
 export default companySlice.reducer;
