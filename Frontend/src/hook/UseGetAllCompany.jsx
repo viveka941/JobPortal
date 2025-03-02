@@ -1,20 +1,18 @@
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux';
-import { setCompanies } from '../component/redux/companySlice';
-import { COMPANY_API_ENDPOINT } from '../component/utils/data';
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setCompanies } from "../component/redux/companySlice";
+import { COMPANY_API_ENDPOINT } from "../component/utils/data";
+import axios from "axios";
 
 export default function UseGetAllCompany() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchCompany  = async () => {
+    const fetchCompany = async () => {
       try {
-        const res = await axios.get(
-          `${COMPANY_API_ENDPOINT}/get`,
-          {
-            withCredentials: true,
-          }
-        );
+        const res = await axios.get(`${COMPANY_API_ENDPOINT}/get`, {
+          withCredentials: true,
+        });
         console.log(res.data);
         if (res.data) {
           dispatch(setCompanies(res.data.companies));
@@ -24,8 +22,7 @@ export default function UseGetAllCompany() {
       }
     };
 
-   
-      fetchCompany ();
-    
-  }, [ ]);
+    fetchCompany();
+  }, []);
+  return null;
 }

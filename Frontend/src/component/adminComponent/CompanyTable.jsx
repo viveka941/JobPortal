@@ -1,23 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 export default function CompanyTable() {
-  const companies = [
-    {
-      logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
-      name: "Google",
-      website: "https://www.google.com",
-    },
-    {
-      logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
-      name: "Microsoft",
-      website: "https://www.microsoft.com",
-    },
-    {
-      logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
-      name: "Amazon",
-      website: "https://www.amazon.com",
-    },
-  ];
+  const { companies = [] } = useSelector((store) => store.company || {}); // Ensure default value
 
   return (
     <div className="p-4">
@@ -26,33 +11,46 @@ export default function CompanyTable() {
           <tr>
             <th className="p-2 border">Company Logo</th>
             <th className="p-2 border">Company Name</th>
-            <th className="p-2 border">Date</th>
-            <th className="p-2 border">Action </th>
+            <th className="p-2 border">Website</th>
+            <th className="p-2 border">Action</th>
           </tr>
         </thead>
         <tbody>
-          {companies.map((company, index) => (
-            <tr key={index} className="text-center border-t hover:bg-gray-50">
-              <td className="p-2 border">
-                <img
-                  src={company.logo}
-                  alt={company.name}
-                  className="h-10 mx-auto"
-                />
-              </td>
-              <td className="p-2 border">{company.name}</td>
-              <td className="p-2 border">
-                <a
-                  href={company.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 hover:underline"
-                >
-                  {company.website}
-                </a>
+          {companies.length === 0 ? (
+            <tr>
+              <td colSpan="4" className="text-center p-4 text-gray-500">
+                No Company Found
               </td>
             </tr>
-          ))}
+          ) : (
+            companies.map((company, index) => (
+              <tr key={index} className="text-center border-t hover:bg-gray-50">
+                <td className="p-2 border">
+                  <img
+                    src={company.logo || "/default-logo.png"}
+                    alt={company.name || "No Name"}
+                    className="h-10 mx-auto rounded"
+                  />
+                </td>
+                <td className="p-2 border">{company.name || "N/A"}</td>
+                <td className="p-2 border">
+                  <a
+                    href={company.website || "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:underline"
+                  >
+                    {company.website || "No Website"}
+                  </a>
+                </td>
+                <td className="p-2 border">
+                  <button className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
