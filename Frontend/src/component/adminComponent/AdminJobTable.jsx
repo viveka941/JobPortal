@@ -1,96 +1,104 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import EditProfileModel from "../authentication/EditProfileModel";
 
-export default function AdminJobTable() {
-  const { companies = [], searchCompaniesByText = "" } = useSelector(
-    (store) => store.company
+const AdminJobsTable = () => {
+  const { companies } = useSelector((store) => store.company);
+ 
+  const { allAdminJobs = [], searchJobByText = "" } = useSelector(
+    (store) => store.job
   );
-
-  const [filteredCompanies, setFilteredCompanies] = useState(companies);
+  console.log(allAdminJobs)
   const navigate = useNavigate();
 
+  const [filterJobs, setFilterJobs] = useState([]);
+
   useEffect(() => {
-    if (companies.length > 0) {
-      const filtered = companies.filter((company) =>
-        company.name.toLowerCase().includes(searchCompaniesByText.toLowerCase())
-      );
-      setFilteredCompanies(filtered);
+    if (allAdminJobs.length > 0) {
+      const filteredJobs = allAdminJobs.filter((job) => {
+        if (!searchJobByText) return true;
+        return (
+          job.title?.toLowerCase().includes(searchJobByText.toLowerCase()) ||
+          job?.company?.name
+            ?.toLowerCase()
+            .includes(searchJobByText.toLowerCase())
+        );
+      });
+      setFilterJobs(filteredJobs);
     } else {
-      setFilteredCompanies([]);
+      setFilterJobs([]);
     }
-  }, [companies, searchCompaniesByText]);
+  }, [allAdminJobs, searchJobByText]);
+
+  if (!companies) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="p-6 bg-[#F8F9FA] min-h-screen">
-      {/* Header */}
-      <div className="mb-6 flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-[#2D2D2D]">Company List</h2>
-        <input
-          type="text"
-          placeholder="Search Company..."
-          className="border border-gray-400 p-2 rounded-lg focus:ring-2 focus:ring-[#50C878] w-72"
-        />
-      </div>
-
-      {/* Table */}
-      <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-[#4A90E2] text-white text-lg">
-              <th className="p-3 border">Company Logo</th>
-              <th className="p-3 border">Company Name</th>
-              <th className="p-3 border">Website</th>
-              <th className="p-3 border">Action</th>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <table className="w-full border-collapse bg-white shadow-lg rounded-lg">
+        <caption className="text-lg font-bold my-4">
+          Your Recent Posted Jobs
+        </caption>
+        <thead>
+          <tr className="bg-blue-500 text-white">
+            <th className="p-3 border">Company Name</th>
+            <th className="p-3 border">Role</th>
+            <th className="p-3 border">Date</th>
+            <th className="p-3 border text-right">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filterJobs.length === 0 ? (
+            <tr>
+              <td colSpan="4" className="text-center p-5 text-gray-500">
+                No Job Added
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {filteredCompanies.length === 0 ? (
-              <tr>
-                <td colSpan="4" className="text-center p-5 text-gray-500">
-                  No Company Found
-                </td>
-              </tr>
-            ) : (
-              filteredCompanies.map((company, index) => (
+          ) : (
+            filterJobs.map((job) => {
+              const companyDetails = companies.find(
+                (c) => c._id === job.company
+              );
+              return (
                 <tr
-                  key={index}
-                  className="text-center border-t hover:bg-[#50C878] transition duration-300"
+                  key={job._id}
+                  className="text-center border hover:bg-gray-200 transition duration-300"
                 >
                   <td className="p-3 border">
-                    <img
-                      src={company.logo || "/default-logo.png"}
-                      alt={company.name || "No Name"}
-                      className="h-12 w-12 mx-auto rounded-lg border"
-                    />
+                    {companyDetails?.name || "N/A"}
                   </td>
-                  <td className="p-3 border font-medium text-[#2D2D2D]">
-                    {company.name || "N/A"}
-                  </td>
+                  <td className="p-3 border">{job.title || "N/A"}</td>
                   <td className="p-3 border">
-                    <a
-                      href={company.website || "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#4A90E2] hover:underline font-medium"
-                    >
-                      {company.website || "No Website"}
-                    </a>
+                    {job.createdAt ? job.createdAt.split("T")[0] : "N/A"}
                   </td>
-                  <td className="p-3 border">
-                    <button
-                      onClick={() => navigate(`/admin/companies/${company.id}`)}
-                      className="bg-[#FF6B6B] text-white px-4 py-2 rounded-lg hover:bg-[#D84343] transition duration-300"
-                    >
-                      Edit
-                    </button>
+                  <td className="p-3 border text-right">
+                    <div className="flex justify-end gap-4">
+                      <button
+                        onClick={() => navigate(`/admin/companies/${job._id}`)}
+                        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300"
+                      >
+                        <EditProfileModel className="w-4" /> Edit
+                      </button>
+                      <button
+                        onClick={() =>
+                          navigate(`/admin/jobs/${job._id}/applicants`)
+                        }
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+                      >
+                        View Applicants
+                      </button>
+                    </div>
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+              );
+            })
+          )}
+        </tbody>
+      </table>
     </div>
   );
-}
+};
+
+export default AdminJobsTable;

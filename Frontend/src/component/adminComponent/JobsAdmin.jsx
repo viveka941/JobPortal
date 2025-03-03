@@ -1,40 +1,44 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../Navbar'
-import { useDispatch } from 'react-redux';
-import { searchCompaniesByText } from '../redux/companySlice';
-import { useNavigate } from 'react-router-dom';
-import AdminJobTable from './AdminJobTable';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import AdminJobTable from "./AdminJobTable";
+import UseGetAllAdminJobs from "../../hook/UseGetAllAdminJobs";
+import Navbar from "../Navbar";
+import { setSearchJobByText } from "../redux/jobSlice";
+ 
 
-export default function JobsAdmin() {
-   const navigate = useNavigate();
-  const [input, setInput] = useState();
+const AdminJobs = () => {
+  UseGetAllAdminJobs();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [input, setInput] = useState("");
+
   useEffect(() => {
-    dispatch(searchCompaniesByText(input));
-  }, [input]);
+    dispatch(setSearchJobByText(input)); // Update Redux on input change
+  }, [input, dispatch]);
+
   return (
     <div>
       <Navbar />
-      <div className="max-w-6xl mx-auto my-10 ">
-        <div className="flex justify-between items-center my-5">
+      <div className="max-w-6xl mx-auto my-10">
+        <div className="flex items-center justify-between my-5">
           <input
-            type="text"
-            placeholder="filter by name"
+            className="border p-2 rounded-lg w-72"
+            placeholder="Filter by Company Name..."
+            value={input}
             onChange={(e) => setInput(e.target.value)}
           />
           <button
-            onClick={() => navigate("/admin/companies/create")}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            onClick={() => navigate("/admin/jobs/create")}
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
           >
-            {" "}
-           Post new Job
+            Post New Job
           </button>
         </div>
-      </div>
-      <div>
-        <AdminJobTable />
+        <AdminJobTable /> {/* Display table */}
       </div>
     </div>
   );
+};
 
-}
+export default AdminJobs;
