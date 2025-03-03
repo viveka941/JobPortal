@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-
+import { all } from "axios";
 
 const jobSlice = createSlice({
   name: "job",
@@ -9,6 +8,7 @@ const jobSlice = createSlice({
     allAdminJobs: [],
     singleJob: null,
     searchJobByText: "",
+    allAppliedJobs: [],
   },
   reducers: {
     setAllJobs: (state, action) => {
@@ -24,9 +24,17 @@ const jobSlice = createSlice({
     setSearchJobByText: (state, action) => {
       state.searchJobByText = action.payload;
     },
+    setAllAppliedJobs: (state, action) => {
+      state.allAppliedJobs = action.payload;
+    },
   },
 });
 
-export const { setAllJobs, setSingleJob, setAllAdminJobs, setSearchJobByText } =
-  jobSlice.actions;
+export const {
+  setAllJobs,
+  setSingleJob,
+  setAllAdminJobs,
+  setSearchJobByText,
+  setAllAppliedJobs,
+} = jobSlice.actions;
 export default jobSlice.reducer;

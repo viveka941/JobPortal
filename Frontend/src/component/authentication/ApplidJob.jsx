@@ -1,72 +1,63 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-export default function AppliedJob() {
-  const jobApplications = [
-    {
-      date: "23-12-2025",
-      title: "Software Engineer",
-      company: "Microsoft",
-      status: "Selected",
-    },
-    {
-      date: "10-01-2025",
-      title: "Frontend Developer",
-      company: "Google",
-      status: "Pending",
-    },
-    {
-      date: "15-02-2025",
-      title: "Backend Developer",
-      company: "Amazon",
-      status: "Rejected",
-    },
-    {
-      date: "05-03-2025",
-      title: "Full Stack Developer",
-      company: "Facebook",
-      status: "Interview Scheduled",
-    },
-    {
-      date: "12-04-2025",
-      title: "UI/UX Designer",
-      company: "Adobe",
-      status: "Selected",
-    },
-  ];
+const AppliedJob = () => {
+  const { allAppliedJobs } = useSelector((store) => store.job);
 
   return (
-    <div className="max-w-4xl mx-auto my-10 p-6 bg-white shadow-md rounded-lg">
-      <h1 className="text-2xl font-bold mb-4 text-gray-800">Applied Jobs</h1>
-      <table className="table-auto w-full border-collapse border border-gray-300">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="border p-3 text-left">Date</th>
-            <th className="border p-3 text-left">Job Title</th>
-            <th className="border p-3 text-left">Company</th>
-            <th className="border p-3 text-left">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {jobApplications.map((job, index) => (
-            <tr key={index} className="hover:bg-gray-100">
-              <td className="border p-3">{job.date}</td>
-              <td className="border p-3">{job.title}</td>
-              <td className="border p-3">{job.company}</td>
-              <td
-                className={`border p-3 font-medium ${
-                  job.status === "Selected"
-                    ? "text-green-600"
-                    : job.status === "Rejected"
-                    ? "text-red-600"
-                    : "text-yellow-600"
-                }`}
-              >
-                {job.status}
-              </td>
+    <div className="p-4">
+      <div className="overflow-x-auto">
+        <table className="min-w-full border border-gray-300 rounded-lg shadow-md">
+          <caption className="p-3 font-bold text-lg bg-gray-100 border-b">
+            Recent Applied Jobs
+          </caption>
+          <thead className="bg-blue-600 text-white">
+            <tr>
+              <th className="px-4 py-2 text-left">Date</th>
+              <th className="px-4 py-2 text-left">Job Title</th>
+              <th className="px-4 py-2 text-left">Company</th>
+              <th className="px-4 py-2 text-right">Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {allAppliedJobs.length === 0 ? (
+              <tr>
+                <td colSpan="4" className="px-4 py-3 text-center text-gray-500">
+                  You have not applied for any job yet.
+                </td>
+              </tr>
+            ) : (
+              allAppliedJobs.map((appliedJob) => (
+                <tr
+                  key={appliedJob._id}
+                  className="border-b hover:bg-gray-200 transition"
+                >
+                  <td className="px-4 py-2">
+                    {appliedJob?.createdAt.split("T")[0]}
+                  </td>
+                  <td className="px-4 py-2">{appliedJob.job?.title}</td>
+                  <td className="px-4 py-2">{appliedJob.job?.company?.name}</td>
+                  <td className="px-4 py-2 text-right">
+                    <button
+                      className={`px-3 py-1 rounded text-white font-semibold ${
+                        appliedJob?.status === "rejected"
+                          ? "bg-red-500 hover:bg-red-600"
+                          : appliedJob?.status === "accepted"
+                          ? "bg-green-600 hover:bg-green-700"
+                          : "bg-gray-500 hover:bg-gray-600"
+                      }`}
+                    >
+                      {appliedJob?.status}
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-}
+};
+
+export default AppliedJob;

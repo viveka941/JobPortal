@@ -3,13 +3,14 @@ import { useSelector } from "react-redux";
 import Navbar from "../Navbar";
 import ApplidJob from "./ApplidJob";
 import EditProfileModel from "./EditProfileModel";
+import UseGetAllApplidJobs from "../../hook/UseGetAllApplidJobs";
 
 export default function UserProfileShow() {
- 
+  UseGetAllApplidJobs();
   const { user } = useSelector((store) => store.auth);
 
   const isResume = true; // Change this based on user data
-   const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const resumeLink = "http://resume.com"; // Replace with actual user resume link
 
   return (
