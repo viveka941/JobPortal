@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { all } from "axios";
-import { act } from "react";
+
 
 const jobSlice = createSlice({
   name: "job",

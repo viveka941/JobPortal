@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSearchQuery } from "../redux/jobSlice";
 
 const filterData = [
   {
@@ -6,68 +8,100 @@ const filterData = [
     array: [
       "Delhi",
       "Mumbai",
+      "Kolhapur",
+      "Pune",
       "Bangalore",
       "Hyderabad",
       "Chennai",
-      "Kolkata",
-      "Pune",
-      "Ahmedabad",
-      "Jaipur",
-      "Surat",
+      "Remote",
     ],
   },
   {
-    filterType: "Industry",
+    filterType: "Technology",
     array: [
-      "IT",
-      "Finance",
-      "Healthcare",
-      "Education",
-      "Manufacturing",
-      "Retail",
-      "Telecommunications",
-      "Real Estate",
-      "Transportation",
-      "Energy",
+      "Mern",
+      "React",
+      "Data Scientist",
+      "Fullstack",
+      "Node",
+      "Python",
+      "Java",
+      "Frontend",
+      "Backend",
+      "Mobile",
+      "Desktop",
     ],
+  },
+  {
+    filterType: "Experience",
+    array: ["0-3 years", "3-5 years", "5-7 years", "7+ years"],
+  },
+  {
+    filterType: "Salary",
+    array: ["0-50k", "50k-100k", "100k-200k", "200k+"],
   },
 ];
 
-export default function FilterCard() {
+const Filter = () => {
+  const [selectedFilters, setSelectedFilters] = useState({});
+  const dispatch = useDispatch();
+
+  const handleCheckboxChange = (filterType, value) => {
+    setSelectedFilters((prevFilters) => {
+      const currentValues = prevFilters[filterType] || [];
+
+      // Toggle selection: Add if not selected, remove if selected
+      const updatedValues = currentValues.includes(value)
+        ? currentValues.filter((item) => item !== value)
+        : [...currentValues, value];
+
+      return { ...prevFilters, [filterType]: updatedValues };
+    });
+  };
+
+  useEffect(() => {
+    dispatch(setSearchQuery(selectedFilters));
+  }, [selectedFilters, dispatch]);
+
   return (
-    <div
-      className="w-64 bg-white shadow-md rounded-lg p-5 border border-gray-200 
-      "
-    >
-      {/* Filter Title */}
-      <h1 className="text-lg font-semibold text-gray-800">Filter Jobs</h1>
+    <div className="w-full bg-white rounded-md p-4 shadow-md border">
+      <h1 className="font-bold text-lg">Filter Jobs</h1>
       <hr className="mt-3 border-gray-300" />
 
-      {/* Filters List */}
-      {filterData.map((data, index) => (
-        <div key={index} className="mt-4">
-          <h2 className="text-md font-medium text-gray-700 mb-2">
-            {data.filterType}
-          </h2>
-          {data.array.map((item, subIndex) => (
-            <div key={subIndex} className="flex items-center gap-2 mb-1">
-              <input
-                type="checkbox"
-                id={`filter-${data.filterType}-${subIndex}`}
-                name={item}
-                value={item}
-                className="cursor-pointer accent-blue-600"
-              />
-              <label
-                htmlFor={`filter-${data.filterType}-${subIndex}`}
-                className="text-gray-600 text-sm cursor-pointer hover:text-blue-600"
-              >
-                {item}
-              </label>
-            </div>
-          ))}
-        </div>
-      ))}
+      <div className="mt-4">
+        {filterData.map((data, index) => (
+          <div key={index} className="mb-4">
+            <h2 className="font-bold text-lg text-gray-800">
+              {data.filterType}
+            </h2>
+            {data.array.map((item, indx) => {
+              const itemId = `filter-${index}-${indx}`;
+              return (
+                <div key={itemId} className="flex items-center space-x-2 my-2">
+                  <input
+                    type="checkbox"
+                    id={itemId}
+                    value={item}
+                    checked={
+                      selectedFilters[data.filterType]?.includes(item) || false
+                    }
+                    onChange={() => handleCheckboxChange(data.filterType, item)}
+                    className="cursor-pointer accent-blue-600"
+                  />
+                  <label
+                    htmlFor={itemId}
+                    className="text-gray-700 cursor-pointer"
+                  >
+                    {item}
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
     </div>
   );
-}
+};
+
+export default Filter;

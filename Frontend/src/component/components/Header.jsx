@@ -11,7 +11,7 @@ export default function Header() {
   const searchJobHandler = () => {
     if (!query.trim()) return; // Prevent empty searches
     dispatch(setSearchQuery(query));
-   
+
     navigate("/browse");
   };
 
