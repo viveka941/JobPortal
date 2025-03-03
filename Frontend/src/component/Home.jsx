@@ -16,6 +16,8 @@ export default function Home() {
       navigate("/admin/companies") 
     }
   })
+
+  
   return (
     <div>
       <UserGetAllJobs /> {/* ✅ Correct usage as a component */}

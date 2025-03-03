@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import JobCards from "./JobCards";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const LatestJobs = () => {
   const { allJobs } = useSelector((store) => store.job);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (allJobs.length > 0) {
+    if (loading && allJobs?.length > 0) {
       setLoading(false);
     }
-  }, [allJobs]);
-
-  console.log("Jobs from Redux Store:", allJobs); // Debugging Step ✅
+  }, [allJobs, loading]); 
 
   return (
     <div className="max-w-7xl mx-auto my-20">
@@ -23,18 +23,20 @@ const LatestJobs = () => {
       <div className="grid grid-cols-3 gap-4 my-5">
         {loading ? (
           <span>Loading jobs...</span>
-        ) : allJobs.length === 0 ? (
+        ) : allJobs?.length === 0 ? (
           <span>No Jobs Available</span>
         ) : (
-          allJobs
-            .slice(0, 6)
-            .map((job) =>
-              job?._id ? (
-                <JobCards key={job._id} job={job} />
-              ) : (
-                <span key={Math.random()}>Invalid Job Data</span>
-              )
+          allJobs.slice(0, 6).map((job) =>
+            job?._id ? (
+              <JobCards
+                key={job._id}
+                job={job}
+                 // ✅ Fixed onClick execution
+              />
+            ) : (
+              <span key={Math.random()}>Invalid Job Data</span>
             )
+          )
         )}
       </div>
     </div>

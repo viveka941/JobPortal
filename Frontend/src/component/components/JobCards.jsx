@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function JobCards({ job }) {
+  const navigate = useNavigate();
+
   return (
-    <div className="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-6 border border-gray-200 hover:shadow-blue-300 hover:py-5">
+    <div className="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-6 border border-gray-200 hover:shadow-blue-300 hover:py-5 transition">
       {/* Company Name & Location */}
       <div className="mb-3">
         <h1 className="text-lg font-semibold text-gray-800">
@@ -25,19 +28,24 @@ export default function JobCards({ job }) {
 
       {/* Job Details (Position, Salary, Type) */}
       <div className="flex flex-wrap gap-3">
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-md hover:bg-blue-700 transition">
+        <span className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-md">
           📌 {job?.position || "N/A"} Positions
-        </button>
-        <button className="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-md hover:bg-green-700 transition">
+        </span>
+        <span className="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-md">
           💰 {job?.salary ? `${job.salary} LPA` : "Salary Not Disclosed"}
-        </button>
-        <button className="bg-purple-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-md hover:bg-purple-700 transition">
+        </span>
+        <span className="bg-purple-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-md">
           🌍 {job?.jobType || "Not Specified"}
-        </button>
-        <button className="bg-orange-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-md hover:bg-orange-700 transition">
-          ⏳ {job?.jobType || "Full Time"}
-        </button>
+        </span>
       </div>
+
+      {/* View Details Button */}
+      <button
+        onClick={() => navigate(`/description/${job._id}`)}
+        className="mt-4 w-full bg-orange-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-md hover:bg-orange-700 transition"
+      >
+        🔍 View Details
+      </button>
     </div>
   );
 }

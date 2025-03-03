@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSingleJob } from "../redux/jobSlice";
 import { APPLICATION_API_ENDPOINT, JOB_API_ENDPOINT } from "../utils/data";
 
-
 const Description = () => {
   const { jobId } = useParams();
   const dispatch = useDispatch();
   const { singleJob } = useSelector((store) => store.job);
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { user } = useSelector((store) => store.auth);
+  const navigate = useNavigate();
 
-  // Fix: Ensure applications array exists before calling .some()
   const isInitiallyApplied =
     singleJob?.applications?.some(
       (application) => application.applicant === user?._id
@@ -28,13 +25,13 @@ const Description = () => {
     try {
       const res = await axios.get(
         `${APPLICATION_API_ENDPOINT}/apply/${jobId}`,
-        { withCredentials: true }
+        {
+          withCredentials: true,
+        }
       );
 
       if (res.data.success) {
         setIsApplied(true);
-
-        // Fix: Correcting state update
         const updatedSingleJob = {
           ...singleJob,
           applications: [
@@ -47,7 +44,7 @@ const Description = () => {
     } catch (error) {
       if (error.response && error.response.status === 400) {
         console.log("Already applied for this job");
-        setIsApplied(true); // Ensure UI updates properly even if already applied
+        setIsApplied(true);
       } else {
         console.log("Error applying:", error.message);
       }
@@ -63,12 +60,8 @@ const Description = () => {
           withCredentials: true,
         });
 
-        console.log("API Response:", res.data);
-
         if (res.data.status) {
           dispatch(setSingleJob(res.data.job));
-
-          // Fix: Ensure applications exist before checking applicant
           setIsApplied(
             res.data.job.applications?.some(
               (application) => application.applicant === user?._id
@@ -93,85 +86,99 @@ const Description = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto my-10">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-bold text-xl">{singleJob?.title}</h1>
-          <div className="flex gap-2 items-center mt-4">
-            <button className="text-blue-600 font-bold">
-              {singleJob?.position} Open Positions
-            </button>
-            <button className="text-[#FA4F09] font-bold">
-              {singleJob?.salary} LPA
-            </button>
-            <button className="text-[#6B3AC2] font-bold">
-              {singleJob?.location}
-            </button>
-            <button className="text-black font-bold">
-              {singleJob?.jobType}
+    <div className="max-w-7xl mx-auto my-10 px-4">
+      {/* Back Button */}
+      <button
+        onClick={() => navigate("/jobs")}
+        className="text-[#6B3AC2] hover:text-[#552d9b] font-medium mb-6"
+      >
+        &larr; Back to Jobs
+      </button>
+
+      {/* Job Header */}
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-[#2D2D2D]">
+              {singleJob?.title}
+            </h1>
+            <div className="flex flex-wrap gap-2 mt-4">
+              <span className="bg-[#E8F0FE] text-[#4A90E2] px-3 py-1 rounded-full text-sm">
+                {singleJob?.position} Open Positions
+              </span>
+              <span className="bg-[#FFEDED] text-[#FF6B6B] px-3 py-1 rounded-full text-sm">
+                {singleJob?.salary} LPA
+              </span>
+              <span className="bg-[#F0E8FF] text-[#6B3AC2] px-3 py-1 rounded-full text-sm">
+                {singleJob?.location}
+              </span>
+              <span className="bg-[#E8F5E9] text-[#50C878] px-3 py-1 rounded-full text-sm">
+                {singleJob?.jobType}
+              </span>
+            </div>
+          </div>
+          <div className="mt-4 md:mt-0">
+            <button
+              onClick={!isApplied ? applyJobHandler : null}
+              disabled={isApplied}
+              className={`rounded-lg px-6 py-3 text-white font-semibold ${
+                isApplied
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-[#6B3AC2] hover:bg-[#552d9b]"
+              }`}
+            >
+              {isApplied ? "Already Applied" : "Apply Now"}
             </button>
           </div>
         </div>
-        <div>
-          <button
-            onClick={!isApplied ? applyJobHandler : null}
-            disabled={isApplied}
-            className={`rounded-lg px-4 py-2 text-white ${
-              isApplied
-                ? "bg-gray-600 cursor-not-allowed"
-                : "bg-[#6B3AC2] hover:bg-[#552d9b]"
-            }`}
-          >
-            {isApplied ? "Already Applied" : "Apply"}
-          </button>
-        </div>
       </div>
-      <h1 className="border-b-2 border-b-gray-400 font-medium py-4">
-        {singleJob?.description}
-      </h1>
-      <div className="my-4">
-        <h1 className="font-bold my-1">
-          Role:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {singleJob?.position} Open Positions
-          </span>
-        </h1>
-        <h1 className="font-bold my-1">
-          Location:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {singleJob?.location}
-          </span>
-        </h1>
-        <h1 className="font-bold my-1">
-          Salary:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {singleJob?.salary} LPA
-          </span>
-        </h1>
-        <h1 className="font-bold my-1">
-          Experience:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {singleJob?.experienceLevel} Year
-          </span>
-        </h1>
-        <h1 className="font-bold my-1">
-          Total Applicants:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {singleJob?.applications?.length}
-          </span>
-        </h1>
-        <h1 className="font-bold my-1">
-          Job Type:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {singleJob?.jobType}
-          </span>
-        </h1>
-        <h1 className="font-bold my-1">
-          Post Date:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {singleJob?.createdAt?.split("T")[0]}
-          </span>
-        </h1>
+
+      {/* Job Description */}
+      <div className="bg-white p-6 rounded-lg shadow-md mt-6">
+        <h2 className="text-xl font-bold text-[#2D2D2D] mb-4">
+          Job Description
+        </h2>
+        <p className="text-gray-700 leading-relaxed">
+          {singleJob?.description}
+        </p>
+      </div>
+
+      {/* Job Details */}
+      <div className="bg-white p-6 rounded-lg shadow-md mt-6">
+        <h2 className="text-xl font-bold text-[#2D2D2D] mb-4">Job Details</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-3">
+            <p className="text-gray-700">
+              <span className="font-semibold">Role:</span> {singleJob?.position}
+            </p>
+            <p className="text-gray-700">
+              <span className="font-semibold">Location:</span>{" "}
+              {singleJob?.location}
+            </p>
+            <p className="text-gray-700">
+              <span className="font-semibold">Salary:</span> {singleJob?.salary}{" "}
+              LPA
+            </p>
+          </div>
+          <div className="space-y-3">
+            <p className="text-gray-700">
+              <span className="font-semibold">Experience:</span>{" "}
+              {singleJob?.experienceLevel} Year
+            </p>
+            <p className="text-gray-700">
+              <span className="font-semibold">Total Applicants:</span>{" "}
+              {singleJob?.applications?.length}
+            </p>
+            <p className="text-gray-700">
+              <span className="font-semibold">Job Type:</span>{" "}
+              {singleJob?.jobType}
+            </p>
+            <p className="text-gray-700">
+              <span className="font-semibold">Post Date:</span>{" "}
+              {singleJob?.createdAt?.split("T")[0]}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
