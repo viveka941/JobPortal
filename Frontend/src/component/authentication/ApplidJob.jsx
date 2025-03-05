@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const AppliedJob = () => {
-  const { allAppliedJobs } = useSelector((store) => store.job);
+  const { allAppliedJobs=[] } = useSelector((store) => store.job);
 
   return (
     <div className="p-4">
