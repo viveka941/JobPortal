@@ -4,12 +4,16 @@ import { COMPANY_API_ENDPOINT } from "../utils/data.js";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Navbar from "../Navbar.jsx";
-
 import UseGetCompanyById from "../../hook/UseGetCompanyById.jsx";
 
 const CompanySetup = () => {
   const params = useParams();
-  UseGetCompanyById(params.id);
+  const { singleCompany = {}, loading: companyLoading } = useSelector(
+    (store) => {
+      console.log("Redux Store:", store.company); // Debug Redux store
+      return store.company;
+    }
+  );
   const [input, setInput] = useState({
     name: "",
     description: "",
@@ -17,9 +21,30 @@ const CompanySetup = () => {
     location: "",
     file: null,
   });
-  const { singleCompany } = useSelector((store) => store.company);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Fetch company data when params._id changes
+  useEffect(() => {
+    console.log("Params ID:", params.id); // Debug params._id
+    if (params._id) {
+      UseGetCompanyById(params._id);
+    }
+  }, [params._id]);
+
+  // Update input state when singleCompany is available
+  useEffect(() => {
+    console.log("Single Company:", singleCompany); // Debug singleCompany
+    if (singleCompany) {
+      setInput({
+        name: singleCompany.name || "",
+        description: singleCompany.description || "",
+        website: singleCompany.website || "",
+        location: singleCompany.location || "",
+        file: singleCompany.file || null,
+      });
+    }
+  }, [singleCompany]);
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -65,15 +90,9 @@ const CompanySetup = () => {
     }
   };
 
-  useEffect(() => {
-    setInput({
-      name: singleCompany.name || "",
-      description: singleCompany.description || "",
-      website: singleCompany.website || "",
-      location: singleCompany.location || "",
-      file: singleCompany.file || null,
-    });
-  }, [singleCompany]);
+  if (companyLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">

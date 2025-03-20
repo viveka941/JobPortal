@@ -4,6 +4,7 @@ import Navbar from "../Navbar";
 import ApplidJob from "./ApplidJob";
 import EditProfileModel from "./EditProfileModel";
 import UseGetAllApplidJobs from "../../hook/UseGetAllApplidJobs";
+import UserData from "./UserData";
 
 export default function UserProfileShow() {
   UseGetAllApplidJobs();
@@ -96,6 +97,9 @@ export default function UserProfileShow() {
             )}
           </div>
         </div>
+      </div>
+      <div>
+        <UserData userId={user?._id}/>
       </div>
       <div className="max-w-4xl mx-auto bg-white rounded-2xl">
         <div className="text-md font-bold">Applid Jobs</div>

@@ -61,7 +61,7 @@ export default function CompanyTable() {
                   </a>
                 </td>
                 <td className="p-2 border">
-                  <button onClick={()=>navigate(`/admin/companies/${company.id}`)} className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-red-600">
+                  <button onClick={()=>navigate(`/admin/companies/${company._id}`)} className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-red-600">
                     Edit 
                   </button>
                 </td>
