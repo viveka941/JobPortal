@@ -59,7 +59,7 @@ const LatestJobs = () => {
           )}
         </div>
       </div>
-      <h1>Hi</h1>
+      <h1>Hello how are you </h1>
     </div>
   );
 };
