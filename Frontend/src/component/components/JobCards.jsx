@@ -29,7 +29,7 @@ export default function JobCards({ job }) {
       {/* Job Details (Position, Salary, Type) */}
       <div className="flex flex-wrap gap-3">
         <span className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-md">
-          📌 {job?.position || "N/A"} Positions
+           {job?.position || "N/A"} Positions
         </span>
         <span className="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-md">
           💰 {job?.salary ? `${job.salary} LPA` : "Salary Not Disclosed"}
