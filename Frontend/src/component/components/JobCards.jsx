@@ -32,10 +32,10 @@ export default function JobCards({ job }) {
            {job?.position || "N/A"} Positions
         </span>
         <span className="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-md">
-          💰 {job?.salary ? `${job.salary} LPA` : "Salary Not Disclosed"}
+           {job?.salary ? `${job.salary} LPA` : "Salary Not Disclosed"}
         </span>
         <span className="bg-purple-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-md">
-          🌍 {job?.jobType || "Not Specified"}
+           {job?.jobType || "Not Specified"}
         </span>
       </div>
 
