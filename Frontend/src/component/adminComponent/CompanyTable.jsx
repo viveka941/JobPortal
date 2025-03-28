@@ -72,7 +72,7 @@ export default function CompanyTable() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-semibold text-gray-900">{company.name || "N/A"}</div>
-                    <div className="text-xs text-gray-500">ID: {company._id?.slice(-6) || "N/A"}</div>
+                    {/* <div className="text-xs text-gray-500">ID: {company._id?.slice(-6) || "N/A"}</div> */}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <a
