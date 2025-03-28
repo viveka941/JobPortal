@@ -7,7 +7,7 @@ export default function Navbar() {
   const {user} = useSelector((store) => store.auth); // Access user data from Redux store
  
   return (
-    <div className="bg-white shadow-sm">
+    <div className="bg-white shadow-sm ">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4 sm:px-6 lg:px-8">
         {/* Logo Section */}
         <div>
@@ -26,7 +26,7 @@ export default function Navbar() {
                   <Link to="/admin/companies">Company</Link>
                 </li>
                 <li className="hover:text-blue-600 transition duration-200">
-                  <Link to="/admin/jobs">Jobs</Link>
+                  <Link to="/admin/jobs">Jobs </Link>
                 </li>
               </>
             ) : (
