@@ -1,9 +1,11 @@
+import { User } from "../models/user.model.js";
 import { Details } from "../models/userDetails.models.js";
 import mongoose from "mongoose";
 
+// ✅ Save User Details (with duplicate email handling)
 export const userDetailsData = async (req, res) => {
   try {
-    const { id } = req.params; // Get user ID from request params
+    const { id } = req.params; // User ID
     const {
       userName,
       phone,
@@ -31,8 +33,8 @@ export const userDetailsData = async (req, res) => {
       !education ||
       !class12 ||
       !class10 ||
-      !technicalSkill.length || // Check if array is not empty
-      !certification.length || // Check if array is not empty
+      !technicalSkill.length || // Ensure it's not empty
+      !certification.length || // Ensure it's not empty
       experience === undefined // Ensure experience is provided (0 is valid)
     ) {
       return res.status(400).json({
@@ -41,93 +43,169 @@ export const userDetailsData = async (req, res) => {
       });
     }
 
-    // ✅ Validate `id`
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        message: "Invalid user ID",
-        success: false,
-      });
-    }
-
-    // ✅ Check if user already exists by email
-    const existingUserData = await Details.findOne({ email });
-    if (existingUserData) {
-      return res.status(409).json({
-        message: "User with this email already exists",
-        success: false,
-      });
-    }
-
-    // ✅ Save user data
-    const userData = new Details({
-      _id: id,
-      userName,
-      phone,
-      email,
-      address,
-      education,
-      masterDegree, // Optional field
-      masterYear, // Optional field
-      graduationDegree, // Optional field
-      graduationYear, // Optional field
-      class12,
-      class10,
-      technicalSkill,
-      certification,
-      experience,
-      achievement, // Optional field
-    });
-
-    await userData.save();
-
-    return res.status(201).json({
-      message: "User details saved successfully",
-      success: true,
-      data: userData,
-    });
-  } catch (error) {
-    console.error("Error saving user details", error);
-    return res.status(500).json({
-      message: "Internal Server Error",
-      success: false,
-      error: error.message,
-    });
-  }
-};
-
-export const getUserdata = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    // Validate ID format
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        message: "Invalid user ID",
-        success: false,
-      });
-    }
-
-    // Fetch user data correctly
-    const userdata = await Details.findById(id).lean(); // Ensure .lean() is used
-
-    if (!userdata) {
+    const existingUser = await User.findOne({ id });
+    if (existingUser) {
       return res.status(404).json({
         message: "User not found",
         success: false,
       });
     }
-
+    const AddData = new Details({
+      userName,
+      phone,
+      email,
+      address,
+      education,
+      masterDegree,
+      masterYear,
+      graduationDegree,
+      graduationYear,
+      class12,
+      class10,
+      technicalSkill,
+      certification,
+      experience,
+      achievement,
+     user : id, // Associate with the user ID
+    });
+    await AddData.save();
     return res.status(200).json({
-      message: "Successfully fetched user data",
+      message: "User details saved successfully",
       success: true,
-      data: userdata,
+      data: AddData,
     });
   } catch (error) {
-    console.error("Error fetching user data:", error);
+    console.error("Error saving user details:", error);
     return res.status(500).json({
       message: "Internal server error",
       success: false,
-      error: error.message,
     });
   }
 };
+
+// ✅ Get User Details by ID
+export const getUserDetails = async (req, res) => {
+  try {
+    const { id } = req.params; // User ID
+
+    // Validate ObjectId format
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: "Invalid user ID format",
+        success: false,
+      });
+    }
+
+    const userDetails = await Details.findOne({ user: id });
+    if (!userDetails) {
+      return res.status(404).json({
+        message: "User details not found",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "User details retrieved successfully",
+      success: true,
+      data: userDetails,
+    });
+  } catch (error) {
+    console.error("Error retrieving user details:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+    });
+  }
+};
+// ✅ Update User Details
+export const updateUserDetails = async (req, res) => {
+  try {
+    const { id } = req.params; // User ID
+    const {
+      userName,
+      phone,
+      email,
+      address,
+      education,
+      masterDegree,
+      masterYear,
+      graduationDegree,
+      graduationYear,
+      class12,
+      class10,
+      technicalSkill,
+      certification,
+      experience,
+      achievement,
+    } = req.body;
+
+    // Validate ObjectId format
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: "Invalid user ID format",
+        success: false,
+      });
+    }
+
+    // Validate required fields
+    if (
+      !userName ||
+      !phone ||
+      !email ||
+      !address ||
+      !education ||
+      !class12 ||
+      !class10 ||
+      !technicalSkill.length || // Ensure it's not empty
+      !certification.length || // Ensure it's not empty
+      experience === undefined // Ensure experience is provided (0 is valid)
+    ) {
+      return res.status(400).json({
+        message: "Missing required fields",
+        success: false,
+      });
+    }
+
+    const updatedUserDetails = await Details.findOneAndUpdate(
+      { user: id },
+      {
+        userName,
+        phone,
+        email,
+        address,
+        education,
+        masterDegree,
+        masterYear,
+        graduationDegree,
+        graduationYear,
+        class12,
+        class10,
+        technicalSkill,
+        certification,
+        experience,
+        achievement,
+      },  
+      { new: true } // Return the updated document
+
+    );
+    if (!updatedUserDetails) {
+      return res.status(404).json({
+        message: "User details not found",
+        success: false,
+      });
+    }
+    return res.status(200).json({
+      message: "User details updated successfully",
+      success: true,
+      data: updatedUserDetails,
+    });
+
+  }
+  catch (error) {
+    console.error("Error updating user details:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+    });
+  }
+}
