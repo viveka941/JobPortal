@@ -15,7 +15,7 @@ const LatestJobs = () => {
   }, [allJobs, loading]); 
 
   return (
-    <div className="relative bg-gradient-to-b from-gray-50 to-white py-16 sm:py-24">
+    <div className="relative bg-gradient-to-b #bcd9ef py-16 sm:py-24">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
