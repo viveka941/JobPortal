@@ -38,7 +38,7 @@ const ApplicantsTable = () => {
               <th className="px-4 py-2 text-left">Contact</th>
               <th className="px-4 py-2 text-left">Resume</th>
               <th className="px-4 py-2 text-left">Date</th>
-              <th className="px-4 py-2 text-left">Action</th>
+              <th className="px-4 py-2 text-left">Action</th>          
             </tr>
           </thead>
           <tbody>
