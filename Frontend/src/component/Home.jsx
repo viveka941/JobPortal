@@ -19,7 +19,10 @@ export default function Home() {
 
   
   return (
-    <div>
+    <div style={{ 
+      background: '#bcd9ef',
+      minHeight: '100vh'
+    }}>
       <UserGetAllJobs /> {/* ✅ Correct usage as a component */}
       <Navbar />
       <Header />
