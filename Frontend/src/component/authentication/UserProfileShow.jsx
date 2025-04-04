@@ -5,14 +5,18 @@ import ApplidJob from "./ApplidJob";
 import EditProfileModel from "./EditProfileModel";
 import UseGetAllApplidJobs from "../../hook/UseGetAllApplidJobs";
 import UserData from "./UserData";
+import AddDetails from "./AddDetails";
+import ChatBot from "./ChatBot";
 
 export default function UserProfileShow() {
   UseGetAllApplidJobs();
   const { user } = useSelector((store) => store.auth);
 
-  const isResume = true; // Change this based on user data
-  const [open, setOpen] = useState(false);
-  const resumeLink = "http://resume.com"; // Replace with actual user resume link
+  const [openEdit, setOpenEdit] = useState(false);
+  const [openAddDetails, setOpenAddDetails] = useState(false);
+
+  const resumeLink = "http://resume.com"; // Replace with actual resume link
+  const hasUserData = user && user?.address;
 
   return (
     <div className="bg-blue-100 min-h-screen">
@@ -41,9 +45,11 @@ export default function UserProfileShow() {
 
           {/* Edit Button */}
           <button
+
             onClick={() => setOpen(true)}
             className="bg-blue-300 p-2 rounded-full hover:bg-gray-400 transition"
             
+
           >
             ✒️
             <span className="text-black">Edit Profile</span>
@@ -70,8 +76,7 @@ export default function UserProfileShow() {
                     key={index}
                     className="px-3 py-1 bg-gray-200 text-gray-700 rounded-md text-sm"
                   >
-                    {skill.stype}{" "}
-                    {/* Access the 'stype' property instead of rendering the object */}
+                    {skill.stype}
                   </span>
                 ))
               : "NA"}
@@ -84,7 +89,7 @@ export default function UserProfileShow() {
             Upload Your Resume
           </label>
           <div>
-            {isResume ? (
+            {user?.profile?.resume ? (
               <a
                 href={resumeLink}
                 target="_blank"
@@ -99,18 +104,54 @@ export default function UserProfileShow() {
             )}
           </div>
         </div>
+
+        {/* Conditionally Render "Add Details" Button */}
+        {!hasUserData && (
+          <div className="flex justify-end mt-4">
+            <button
+              onClick={() => setOpenAddDetails(true)}
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+            >
+              ➕ Add Details
+            </button>
+          </div>
+        )}
+
+        {/* AddDetails Modal */}
+        {openAddDetails && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+              <h2 className="text-xl font-semibold mb-4">Add Your Details</h2>
+              <AddDetails userId={user?._id} />
+
+              <button
+                onClick={() => setOpenAddDetails(false)}
+                className="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </div>
+
       <div>
-        <UserData userId={user?._id}/>
+        <UserData userId={user?._id} />
       </div>
+
       <div className="max-w-4xl mx-auto bg-white rounded-2xl">
-        <div className="text-md font-bold">Applid Jobs</div>
+        <div className="text-md font-bold">Applied Jobs</div>
       </div>
-      {/* add application table  */}
+
+      {/* Applied Jobs Table */}
       <ApplidJob />
 
-      {/* edit profile model  */}
-      <EditProfileModel open={open} setOpen={setOpen} />
+      {/* Edit Profile Modal */}
+      <EditProfileModel open={openEdit} setOpen={setOpenEdit} />
+      <div className="fixed top-20 right-4">
+        <ChatBot />
+      </div>
+       
     </div>
   );
 }
