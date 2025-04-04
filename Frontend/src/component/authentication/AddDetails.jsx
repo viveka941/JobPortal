@@ -326,11 +326,11 @@ export default function AddDetails({ userId }) {
               <label className="block text-gray-700 font-medium mb-2">
                 Work Experience
               </label>
-              <textarea
+              <input
                 {...register("experience")}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                rows="3"
-              ></textarea>
+                rows="3" placeholder="exprience year in number "
+              ></input>
             </div>
 
             <div>

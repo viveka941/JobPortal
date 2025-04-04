@@ -16,6 +16,10 @@ const applicationSchema = new mongoose.Schema(
       enum: ["pending", "accepted", "rejected"],
       default: "pending",
     },
+    reason: {
+      type: String,
+      default:"pending",
+    },
   },
   {
     timestamps: true,

@@ -95,9 +95,9 @@ export const getApplicants = async (req, res) => {
 
 export const updateStatus = async (req, res) => {
   try {
-    const { status } = req.body;
+    const { status,reason } = req.body;
     const applicationId = req.params.id;
-    if (!status) {
+    if (!status || !reason) {
       return res.status(400).json({
         message: "status is required",
         success: false,
@@ -115,6 +115,7 @@ export const updateStatus = async (req, res) => {
 
     // update the status
     application.status = status.toLowerCase();
+    application.reason = reason;
     await application.save();
 
     return res
