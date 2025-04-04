@@ -19,9 +19,9 @@ export default function UserProfileShow() {
   const hasUserData = user && user?.address;
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-blue-100 min-h-screen">
       <Navbar />
-      <div className="max-w-4xl mx-auto mt-10 p-6 bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-yellow-400 transition">
+      <div className="max-w-4xl mx-auto mt-10 p-6 bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-blue-400 transition">
         <div className="flex items-center gap-6">
           {/* Profile Image */}
           <div className="w-24 h-24">
@@ -45,10 +45,14 @@ export default function UserProfileShow() {
 
           {/* Edit Button */}
           <button
-            onClick={() => setOpenEdit(true)}
-            className="bg-gray-300 p-2 rounded-full hover:bg-gray-400 transition"
+
+            onClick={() => setOpen(true)}
+            className="bg-blue-300 p-2 rounded-full hover:bg-gray-400 transition"
+            
+
           >
             ✒️
+            <span className="text-black">Edit Profile</span>
           </button>
         </div>
 

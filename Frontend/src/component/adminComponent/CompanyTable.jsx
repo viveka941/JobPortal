@@ -102,6 +102,7 @@ export default function CompanyTable() {
               ))
             )}
           </tbody>
+      
         </table> 
       </div>
     </div>
