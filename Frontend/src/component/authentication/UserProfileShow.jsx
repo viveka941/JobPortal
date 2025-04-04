@@ -4,6 +4,7 @@ import Navbar from "../Navbar";
 import ApplidJob from "./ApplidJob";
 import EditProfileModel from "./EditProfileModel";
 import UseGetAllApplidJobs from "../../hook/UseGetAllApplidJobs";
+import UserData from "./UserData";
 
 export default function UserProfileShow() {
   UseGetAllApplidJobs();
@@ -14,9 +15,9 @@ export default function UserProfileShow() {
   const resumeLink = "http://resume.com"; // Replace with actual user resume link
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-blue-100 min-h-screen">
       <Navbar />
-      <div className="max-w-4xl mx-auto mt-10 p-6 bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-yellow-400 transition">
+      <div className="max-w-4xl mx-auto mt-10 p-6 bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-blue-400 transition">
         <div className="flex items-center gap-6">
           {/* Profile Image */}
           <div className="w-24 h-24">
@@ -41,9 +42,11 @@ export default function UserProfileShow() {
           {/* Edit Button */}
           <button
             onClick={() => setOpen(true)}
-            className="bg-gray-300 p-2 rounded-full hover:bg-gray-400 transition"
+            className="bg-blue-300 p-2 rounded-full hover:bg-gray-400 transition"
+            
           >
             ✒️
+            <span className="text-black">Edit Profile</span>
           </button>
         </div>
 
@@ -96,6 +99,9 @@ export default function UserProfileShow() {
             )}
           </div>
         </div>
+      </div>
+      <div>
+        <UserData userId={user?._id}/>
       </div>
       <div className="max-w-4xl mx-auto bg-white rounded-2xl">
         <div className="text-md font-bold">Applid Jobs</div>

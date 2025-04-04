@@ -14,8 +14,8 @@ export default function EditProfileModel({ open, setOpen }) {
     email: user?.email || "",
     phoneNumber: user?.phoneNumber || "",
     bio: user?.bio || "",
-    skills: user?.skills?.join(", ") || "", // Convert array to string
-    file: user?.profile?.resume||null,
+    skills: user?.skills?.join(", ") || "",
+    file: user?.profile?.resume || null,
   });
 
   const handleChange = (e) => {
@@ -70,81 +70,111 @@ export default function EditProfileModel({ open, setOpen }) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-        <h2 className="text-xl font-bold mb-4">Edit Profile</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label className="block text-sm font-medium">Full Name</label>
-            <input
-              type="text"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-              required
-            />
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 transition-all duration-300">
+      <div className="bg-blue-0 p-8 rounded-2xl shadow-2xl max-w-2xl w-full mx-4 transform transition-all duration-300 scale-100">
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h2 className="text-2xl font-bold text-white">Edit Profile</h2>
+            <p className="text-sm text-white mt-1">Update your personal information</p>
+          </div>
+          <button
+            onClick={() => setOpen(false)}
+            className="text-gray-400 hover:text-gray-600 transition-colors p-2 hover:bg-gray-100 rounded-full"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-white">Full Name</label>
+              <input
+                type="text"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-white">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-white">Phone Number</label>
+              <input
+                type="text"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-white">Skills</label>
+              <input
+                type="text"
+                name="skills"
+                value={formData.skills}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50"
+                placeholder="Comma-separated skills"
+              />
+            </div>
           </div>
 
-          <div className="mb-3">
-            <label className="block text-sm font-medium">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-              required
-            />
-          </div>
-
-          <div className="mb-3">
-            <label className="block text-sm font-medium">Phone Number</label>
-            <input
-              type="text"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-
-          <div className="mb-3">
-            <label className="block text-sm font-medium">Bio</label>
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-white">Bio</label>
             <textarea
               name="bio"
               value={formData.bio}
               onChange={handleChange}
-              className="w-full p-2 border rounded"
+              rows="4"
+              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 resize-none"
+              placeholder="Tell us about yourself..."
             ></textarea>
           </div>
 
-          <div className="mb-3">
-            <label className="block text-sm font-medium">Skills</label>
-            <input
-              type="text"
-              name="skills"
-              value={formData.skills}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-              placeholder="Comma-separated skills"
-            />
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-white">Resume</label>
+            <div className="flex items-center space-x-4">
+              <div className="w-full">
+                <input
+                  type="file"
+                  name="file"
+                  onChange={handleFileHandler}
+                  className="block w-full text-sm text-gray-500
+                    file:mr-4 file:py-2.5 file:px-4
+                    file:rounded-lg file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-blue-50 file:text-blue-700
+                    hover:file:bg-blue-100
+                    cursor-pointer
+                    border border-gray-200 rounded-lg bg-gray-50"
+                />
+                <p className="mt-1 text-xs text-white">Upload your resume in PDF or DOC format</p>
+              </div>
+            </div>
           </div>
 
-          <div className="mb-3">
-            <label className="block text-sm font-medium">Resume</label>
-            <input
-              type="file"
-              name="file"
-              onChange={handleFileHandler}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-
-          <div className="flex justify-end gap-2">
+          <div className="flex justify-end gap-4 pt-6 border-t border-gray-100">
             <button
               type="button"
-              className="bg-gray-300 px-4 py-2 rounded"
+              className="px-6 py-2.5 text-white bg-red-500 rounded-lg hover:bg-red-800 transition-colors font-medium"
               onClick={() => setOpen(false)}
               disabled={loading}
             >
@@ -152,10 +182,25 @@ export default function EditProfileModel({ open, setOpen }) {
             </button>
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded"
+              className="px-6 py-2.5 text-white bg-blue-600 rounded-lg hover:bg-blue-800 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               disabled={loading}
             >
-              {loading ? "Saving..." : "Save"}
+              {loading ? (
+                <>
+                  <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span>Saving Changes</span>
+                </>
+              ) : (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Save Changes</span>
+                </>
+              )}
             </button>
           </div>
         </form>
