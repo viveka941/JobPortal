@@ -8,10 +8,17 @@ const shortlistingStatus = ["Accepted", "Rejected"];
 const ApplicantsTable = () => {
   const { applications } = useSelector((store) => store.application);
   const [selectedReasons, setSelectedReasons] = useState({});
+  const [selectedStatus, setSelectedStatus] = useState({});
 
   const statusHandler = async (status, id) => {
     try {
       const reason = selectedReasons[id] || "";
+
+      // Validation if Rejected but no reason
+      if (status === "Rejected" && !reason) {
+        alert("Please select a reason for rejection.");
+        return;
+      }
 
       const res = await axios.post(
         `${APPLICATION_API_ENDPOINT}/status/${id}/update`,
@@ -32,6 +39,17 @@ const ApplicantsTable = () => {
       ...prev,
       [id]: value,
     }));
+  };
+
+  const handleStatusChange = (id, status) => {
+    setSelectedStatus((prev) => ({
+      ...prev,
+      [id]: status,
+    }));
+
+    if (status === "Accepted") {
+      statusHandler("Accepted", id);
+    }
   };
 
   return (
@@ -107,8 +125,11 @@ const ApplicantsTable = () => {
                               type="radio"
                               name={`status-${item._id}`}
                               value={status}
+                              checked={selectedStatus[item._id] === status}
+                              onChange={() =>
+                                handleStatusChange(item._id, status)
+                              }
                               className="accent-blue-600"
-                              onClick={() => statusHandler(status, item._id)}
                             />
                             <span className="text-sm">{status}</span>
                           </label>
@@ -116,41 +137,43 @@ const ApplicantsTable = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 text-sm">
-                      <div className="flex flex-col gap-2">
-                        <select
-                          name="rejectionReason"
-                          value={selectedReasons[item._id] || ""}
-                          onChange={(e) =>
-                            handleReasonChange(item._id, e.target.value)
-                          }
-                          className="border rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        >
-                          <option value="">Select Reason</option>
-                          <option value=" Lack of required technical skills">
-                            Lack of required technical skills
-                          </option>
-                          <option value=" Poor communication or soft skills">
-                            Poor communication or soft skills
-                          </option>
-                          <option value=" Not enough relevant experience">
-                            Not enough relevant experience
-                          </option>
-                          <option value=" Failed the technical test or interview round">
-                            Failed the technical test or interview round
-                          </option>
-                          <option value=" Cultural or team fit mismatch">
-                            Cultural or team fit mismatch
-                          </option>
-                        </select>
+                      {selectedStatus[item._id] === "Rejected" && (
+                        <div className="flex flex-col gap-2">
+                          <select
+                            name="rejectionReason"
+                            value={selectedReasons[item._id] || ""}
+                            onChange={(e) =>
+                              handleReasonChange(item._id, e.target.value)
+                            }
+                            className="border rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                          >
+                            <option value="">Select Reason</option>
+                            <option value="Lack of required technical skills">
+                              Lack of required technical skills
+                            </option>
+                            <option value="Poor communication or soft skills">
+                              Poor communication or soft skills
+                            </option>
+                            <option value="Not enough relevant experience">
+                              Not enough relevant experience
+                            </option>
+                            <option value="Failed the technical test or interview round">
+                              Failed the technical test or interview round
+                            </option>
+                            <option value="Cultural or team fit mismatch">
+                              Cultural or team fit mismatch
+                            </option>
+                          </select>
 
-                        <button
-                          type="button"
-                          onClick={() => statusHandler("Rejected", item._id)}
-                          className="bg-blue-600 hover:bg-blue-700 transition text-white px-3 py-1 rounded-md text-sm shadow-sm"
-                        >
-                          Submit
-                        </button>
-                      </div>
+                          <button
+                            type="button"
+                            onClick={() => statusHandler("Rejected", item._id)}
+                            className="bg-blue-600 hover:bg-blue-700 transition text-white px-3 py-1 rounded-md text-sm shadow-sm"
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      )}
                     </td>
                   </tr>
                 ))
@@ -173,3 +196,4 @@ const ApplicantsTable = () => {
 };
 
 export default ApplicantsTable;
+

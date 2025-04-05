@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import UserProfile from "./UserProfile"; // Import the UserProfile component
 import Logo from "./Logo";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,27 +49,79 @@ export default function Navbar() {
               // Links for Recruiter
               <>
                 <li className="hover:text-blue-600 transition duration-200">
-                  <Link to="/admin/companies">Company</Link>
+                  <NavLink
+                    to="/admin/companies"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-blue-600  underline font-extrabold"
+                        : "hover:text-blue-600 transition duration-200 "
+                    }
+                  >
+                    Company
+                  </NavLink>
                 </li>
                 <li className="hover:text-blue-600 transition duration-200">
-                  <Link to="/admin/jobs">Jobs</Link>
+                  <NavLink
+                    to="/admin/jobs"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-blue-600  underline font-extrabold"
+                        : "hover:text-blue-600 transition duration-200 "
+                    }
+                  >
+                    Jobs
+                  </NavLink>
                 </li>
               </>
             ) : (
               // Links for Non-Recruiter (Guest or Candidate)
               <>
                 <li className="hover:text-blue-600 transition duration-200">
-                  <Link to="/">Home</Link>
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-blue-600  underline font-extrabold"
+                        : "hover:text-blue-600 transition duration-200 "
+                    }
+                  >
+                    Home
+                  </NavLink>
                 </li>
                 <li className="hover:text-blue-600 transition duration-200">
-                  <Link to="/browse">Browse</Link>
+                  <NavLink
+                    to="/browse"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-blue-600  underline font-extrabold"
+                        : "hover:text-blue-600 transition duration-200 "
+                    }
+                  >
+                    Browse
+                  </NavLink>
                 </li>
                 <li className="hover:text-blue-600 transition duration-200">
-                  <Link to="/jobs">Jobs</Link>
+                  <NavLink
+                    to="/jobs"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-blue-600  underline font-extrabold"
+                        : "hover:text-blue-600 transition duration-200 "
+                    }
+                  >
+                    Jobs
+                  </NavLink>
+                </li>
+                <li className="hover:text-blue-600 transition duration-200">
+                  <NavLink to="/about"  className={({ isActive }) =>
+                      isActive
+                        ? "text-blue-600  underline font-extrabold"
+                        : "hover:text-blue-600 transition duration-200 "
+                    }>About</NavLink>
                 </li>
                 {!user && ( // Show Register link only if user is not logged in
                   <li className="hover:text-blue-600 transition duration-200">
-                    <Link to="/register">Register</Link>
+                    <NavLink to="/register">Register</NavLink>
                   </li>
                 )}
               </>
@@ -83,12 +135,12 @@ export default function Navbar() {
             <UserProfile />
           ) : (
             // Show Login link if user is not logged in
-            <Link
+            <NavLink
               to="/login"
               className="hover:text-blue-600 transition duration-200"
             >
               Login
-            </Link>
+            </NavLink>
           )}
         </div>
 
@@ -99,64 +151,64 @@ export default function Navbar() {
               {user && user.role === "Recruiter" ? (
                 // Mobile Links for Recruiter
                 <>
-                  <Link
+                  <NavLink
                     to="/admin/companies"
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Company
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to="/admin/jobs"
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Jobs
-                  </Link>
+                  </NavLink>
                 </>
               ) : (
                 // Mobile Links for Non-Recruiter
                 <>
-                  <Link
+                  <NavLink
                     to="/"
                     className="block px-4 py-2 text-gray-700 hover:bg-blue-100 rounded-md"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Home
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to="/browse"
                     className="block px-4 py-2 text-gray-700 hover:bg-blue-100 rounded-md"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Browse
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to="/jobs"
                     className="block px-4 py-2 text-gray-700 hover:bg-blue-100 rounded-md"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Jobs
-                  </Link>
+                  </NavLink>
                   {!user && (
-                    <Link
+                    <NavLink
                       to="/register"
                       className="block px-4 py-2 text-gray-700 hover:bg-blue-100 rounded-md"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Register
-                    </Link>
+                    </NavLink>
                   )}
                 </>
               )}
               {!user && (
-                <Link
+                <NavLink
                   to="/login"
                   className="block px-4 py-2 text-gray-700 hover:bg-blue-100 rounded-md"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Login
-                </Link>
+                </NavLink>
               )}
               {user && (
                 <div className="px-4 py-2">

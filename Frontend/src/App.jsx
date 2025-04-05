@@ -17,6 +17,7 @@ import CompnaySetup from "./component/adminComponent/CompnaySetup";
 import JobsAdmin from "./component/adminComponent/JobsAdmin";
 import PostJob from "./component/adminComponent/PostJob";
 import Applicants from "./component/adminComponent/Applicants";
+import About from "./component/adminComponent/About";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -75,6 +76,10 @@ function App() {
       path: "/admin/jobs/:id/applicants",
       element: <Applicants/>,
     },
+    {
+      path:"/about",
+      element:<About/>
+    }
   ]);
   return <RouterProvider router={appRouter}></RouterProvider>;
 }
