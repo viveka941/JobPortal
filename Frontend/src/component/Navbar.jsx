@@ -113,11 +113,28 @@ export default function Navbar() {
                   </NavLink>
                 </li>
                 <li className="hover:text-blue-600 transition duration-200">
-                  <NavLink to="/about"  className={({ isActive }) =>
+                  <NavLink
+                    to="/mocktest"
+                    className={({ isActive }) =>
                       isActive
                         ? "text-blue-600  underline font-extrabold"
                         : "hover:text-blue-600 transition duration-200 "
-                    }>About</NavLink>
+                    }
+                  >
+                    MockTest
+                  </NavLink>
+                </li>
+                <li className="hover:text-blue-600 transition duration-200">
+                  <NavLink
+                    to="/about"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-blue-600  underline font-extrabold"
+                        : "hover:text-blue-600 transition duration-200 "
+                    }
+                  >
+                    About
+                  </NavLink>
                 </li>
                 {!user && ( // Show Register link only if user is not logged in
                   <li className="hover:text-blue-600 transition duration-200">

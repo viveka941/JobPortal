@@ -1,0 +1,51 @@
+﻿Question,Option A,Option B,Option C,Option D,Correct Answer
+What does MERN stand for?,MongoDB,Express,React,Node,All
+Which database is used in MERN stack?,MySQL,MongoDB,PostgreSQL,Oracle,MongoDB
+Which language is used in all parts of MERN stack?,Python,Java,JavaScript,C#,JavaScript
+Which of the following is a frontend library in MERN?,Node,React,Express,MongoDB,React
+Which one is a backend framework in MERN?,Angular,Vue,Express,jQuery,Express
+What is JSX?,Java XML,A preprocessor,JavaScript XML,A markup language,JavaScript XML
+Which command is used to start a React app?,npm run start,npm start,yarn begin,react run,npm start
+What is the use of useState in React?,For routing,For managing state,For APIs,For debugging,For managing state
+Which HTTP method is used to fetch data?,POST,GET,PUT,DELETE,GET
+Which method is used to update a state in React?,this.setState,updateState,modify,changeState,this.setState
+What is the role of Express.js in MERN?,Frontend UI,Database,Server framework,Styling,Server framework
+What is the file extension for React components?,.js,.jsx,.react,.tsx,.jsx
+How do you connect MongoDB with Node.js?,mongoose.connect(),connect.db(),mongo.connect(),node.connect(),mongoose.connect()
+What is the default port for MongoDB?,3000,27017,8080,8000,27017
+What does npm stand for?,Node Private Module,Node Package Manager,New Project Module,None,Node Package Manager
+Which hook is used for lifecycle methods in React functional components?,useEffect,useState,useRef,useMemo,useEffect
+Which of these is used for backend routing?,React Router,Express Router,Mongo Router,Node Router,Express Router
+How do you create a React app?,npx react-create,npx create-react-app,npm build react,npx react-app-create,npx create-react-app
+What is the purpose of props in React?,To manage lifecycle,To add styling,To pass data,To store data,To pass data
+What does REST stand for?,Remote Execution,Representational State Transfer,Ready Engine,Routing Express State Tool,Representational State Transfer
+Which package helps with MongoDB modeling?,mongoose,monk,mongojs,dbmodel,mongoose
+Which React hook is used to create references?,useState,useRef,useEffect,useMemo,useRef
+How to handle forms in React?,useInput,FormHandler,Controlled Components,Static Forms,Controlled Components
+Which is a templating engine used with Express?,EJS,React,Vue,JSX,EJS
+Which method is used to send data in POST request?,res.send(),req.body(),res.json(),axios.post(),axios.post()
+How to start MongoDB server?,mongod,mongo-start,mongo-server,startdb,mongod
+Which middleware parses JSON in Express?,body-parser,json-parser,express-json,parser,body-parser
+What does CRUD stand for?,"Create, Read, Update, Delete","Create, Run, Update, Drop","Connect, Run, Upload, Download",None,"Create, Read, Update, Delete"
+Which tool is used for MongoDB GUI?,Postman,Robo 3T,Studio 3D,Express Tool,Robo 3T
+What does useEffect run by default?,After render,Before render,On load only,Manually,After render
+Which HTTP status code means success?,400,500,200,404,200
+Which component type has lifecycle methods?,Functional,Stateless,Class-based,Pure,Class-based
+What is a virtual DOM?,Real browser DOM,Copy of real DOM,Database,Backend DOM,Copy of real DOM
+Which is used to manage routing in React?,axios,express-router,react-router-dom,path,react-router-dom
+What is CORS?,Cross-Origin Resource Sharing,Control Object Request,Client Object Resource,None,Cross-Origin Resource Sharing
+How to make a REST API in Express?,app.rest(),app.router(),"app.get(), app.post()",api.route(),"app.get(), app.post()"
+Which tool helps test APIs?,VS Code,Figma,Postman,MongoShell,Postman
+Which hook prevents unnecessary rendering?,useMemo,useRef,useLayoutEffect,useId,useMemo
+Which command installs dependencies?,npm add,npm init,npm i,npm remove,npm i
+How do you create a schema in mongoose?,new mongoose.Schema(),mongoose.create(),mongo.schema(),schema.new(),new mongoose.Schema()
+What is the entry point file for Node app?,main.js,app.js,index.js,entry.js,index.js
+Which directive is used to pass dynamic data in JSX?,{ },{{ }},[[]],<% %>,{ }
+What is Babel used for?,Styling,Transpiling,Bundling,Debugging,Transpiling
+Which tool bundles JavaScript files?,Webpack,Node,React,npm,Webpack
+Which Express method is used to create a server?,createServer(),express(),app.create(),new Express(),express()
+How do you define a route in Express?,route(),app.route(),app.get(),get(),app.get()
+What is the purpose of Redux?,Routing,Form handling,State Management,Database,State Management
+Which React hook replaces componentDidMount?,useEffect,useRef,useState,useReducer,useEffect
+Which method is used to send response in Express?,res.send(),res.set(),res.output(),send.res(),res.send()
+What does JSX allow you to write?,HTML in JS,CSS in JS,DB in JS,JS in DB,HTML in JS

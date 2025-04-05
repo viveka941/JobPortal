@@ -43,54 +43,57 @@ const filterData = [
 ];
 
 const Filter = () => {
-  const [selectedFilters, setSelectedFilters] = useState({});
+  const [selectedFilters, setSelectedFilters] = useState({
+    Location: [],
+    Technology: [],
+    Experience: [],
+    Salary: []
+  });
   const dispatch = useDispatch();
 
   const handleCheckboxChange = (filterType, value) => {
-    setSelectedFilters((prevFilters) => {
-      const currentValues = prevFilters[filterType] || [];
-
-      // Toggle selection: Add if not selected, remove if selected
-      const updatedValues = currentValues.includes(value)
-        ? currentValues.filter((item) => item !== value)
-        : [...currentValues, value];
-
-      return { ...prevFilters, [filterType]: updatedValues };
-    });
+    setSelectedFilters(prev => ({
+      ...prev,
+      [filterType]: prev[filterType].includes(value)
+        ? prev[filterType].filter(item => item !== value)
+        : [...prev[filterType], value]
+    }));
   };
 
   useEffect(() => {
-    dispatch(setSearchQuery(selectedFilters));
+    // Transform filters into query parameters format
+    const queryParams = Object.entries(selectedFilters).reduce((acc, [key, values]) => {
+      if (values.length > 0) {
+        acc[key.toLowerCase()] = values.join(",");
+      }
+      return acc;
+    }, {});
+
+    dispatch(setSearchQuery(queryParams));
   }, [selectedFilters, dispatch]);
 
   return (
     <div className="w-full bg-white rounded-md p-4 shadow-md border">
-      <h1 className="font-bold text-lg">Filter Jobs</h1>
-      <hr className="mt-3 border-gray-300" />
-
-      <div className="mt-4">
-        {filterData.map((data, index) => (
-          <div key={index} className="mb-4">
-            <h2 className="font-bold text-lg text-gray-800">
-              {data.filterType}
-            </h2>
-            {data.array.map((item, indx) => {
-              const itemId = `filter-${index}-${indx}`;
+      <h1 className="font-bold text-lg mb-3">Filter Jobs</h1>
+      
+      {filterData.map((data, index) => (
+        <div key={data.filterType} className="mb-4">
+          <h2 className="font-semibold text-gray-700 mb-2">{data.filterType}</h2>
+          <div className="grid grid-cols-1 gap-2">
+            {data.array.map((item) => {
+              const inputId = `${data.filterType}-${item.replace(/\s+/g, "-")}`;
               return (
-                <div key={itemId} className="flex items-center space-x-2 my-2">
+                <div key={inputId} className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    id={itemId}
-                    value={item}
-                    checked={
-                      selectedFilters[data.filterType]?.includes(item) || false
-                    }
+                    id={inputId}
+                    checked={selectedFilters[data.filterType].includes(item)}
                     onChange={() => handleCheckboxChange(data.filterType, item)}
-                    className="cursor-pointer accent-blue-600"
+                    className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                   />
                   <label
-                    htmlFor={itemId}
-                    className="text-gray-700 cursor-pointer"
+                    htmlFor={inputId}
+                    className="text-sm text-gray-600 cursor-pointer"
                   >
                     {item}
                   </label>
@@ -98,10 +101,13 @@ const Filter = () => {
               );
             })}
           </div>
-        ))}
-      </div>
+          {index < filterData.length - 1 && <hr className="my-4 border-gray-200" />}
+        </div>
+      ))}
     </div>
   );
 };
+
+
 
 export default Filter;

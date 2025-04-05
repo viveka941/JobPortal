@@ -18,6 +18,9 @@ import JobsAdmin from "./component/adminComponent/JobsAdmin";
 import PostJob from "./component/adminComponent/PostJob";
 import Applicants from "./component/adminComponent/Applicants";
 import About from "./component/adminComponent/About";
+import MockTest from "./component/components/MockTest";
+import Test from "./component/components/Test";
+import MockTest1 from "./component/components/MockTest1";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -74,12 +77,24 @@ function App() {
     },
     {
       path: "/admin/jobs/:id/applicants",
-      element: <Applicants/>,
+      element: <Applicants />,
     },
     {
-      path:"/about",
-      element:<About/>
-    }
+      path: "/mocktest",
+      element: <MockTest />,
+    },
+    {
+      path: "/about",
+      element: <About />,
+    },
+    {
+      path: "/test/:id",
+      element: <Test />,
+    },
+    {
+      path: "/test/test1",
+      element:<MockTest1/>
+    },
   ]);
   return <RouterProvider router={appRouter}></RouterProvider>;
 }
