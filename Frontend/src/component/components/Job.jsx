@@ -3,23 +3,26 @@ import React from "react";
 import { BsBookmarkPlusFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
-export default function Job({job}) {
+export default function Job({ job }) {
   const navigate = useNavigate();
-  const daysAgo = (mongodbTime)=>{
+  const daysAgo = (mongodbTime) => {
     const today = new Date();
     const postedDate = new Date(mongodbTime);
     const diffTime = Math.abs(today - postedDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
-     
-  }
- 
-  
+  };
+
   return (
     <div className="max-w-lg mx-auto bg-white shadow-md hover:shadow-xl transition-all duration-300 rounded-lg p-6 border border-gray-200">
       {/* Job Posting Time & Bookmark */}
       <div className="flex justify-between items-center text-gray-500 text-sm">
-        <p>📅 {daysAgo(job?.createdAt)===0 ? "Today": `${daysAgo(job?.createdAt)} days ago`} </p>
+        <p>
+          📅{" "}
+          {daysAgo(job?.createdAt) === 0
+            ? "Today"
+            : `${daysAgo(job?.createdAt)} days ago`}{" "}
+        </p>
         <button className="text-gray-700 hover:text-blue-600">
           <BsBookmarkPlusFill size={20} />
         </button>
@@ -75,7 +78,12 @@ export default function Job({job}) {
 
       {/* Apply Button */}
       <div className="mt-5">
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition-all">
+        <button
+          onClick={() => {
+            navigate(`/description/${job?._id}`);
+          }}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition-all"
+        >
           Apply Now
         </button>
       </div>
