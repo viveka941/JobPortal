@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setUser } from "../redux/authSlice";
 
 export default function Login() {
+
+  const [message,setMessage]=useState("")
   const [input, setInput] = useState({
     fullName: "",
     email: "",
@@ -39,7 +41,9 @@ export default function Login() {
         navigate("/");
       }
     } catch (error) {
-      console.error(error.response?.data?.message || error.message);
+      const errorMsg = error.response?.data?.message || "Login failed!";
+     
+      setMessage(errorMsg);
     } finally {
       dispatch(setLoading(false));
     }
@@ -126,6 +130,8 @@ export default function Login() {
             >
               {loading ? "Loading..." : "Login Now"}
             </button>
+
+            {message&&<p style={{color:"red"}}>{message}</p>}
 
             {/* Register Link */}
             <p className="text-center text-gray-600">
