@@ -1,0 +1,88 @@
+Question,Option A,Option B,Option C,Option D,Correct Answer
+What does CPU stand for?,Central Processing Unit,Computer Peripheral Unit,Control Programming Unit,Central Program Utility,Central Processing Unit
+Which of the following is a programming language?,HTML,CSS,Python,All of the above,Python
+What is an algorithm?,A computer program,A step-by-step procedure,A type of data,A hardware component,A step-by-step procedure
+What is a variable?,A constant value,A storage location with a name,A function,An operator,A storage location with a name
+What is a data type?,A type of computer,A type of algorithm,A classification of data,A type of variable,A classification of data
+Which of the following is an example of an integer?,3.14,TRUE,Hello,10,10
+Which of the following is an example of a string?,10,3.14,TRUE,Hello,Hello
+Which of the following is an example of a boolean?,10,3.14,Hello,TRUE,TRUE
+"What does ""if"" statement do?",Loops through code,Defines a function,Makes a decision based on a condition,Prints text to the console,Makes a decision based on a condition
+"What does a ""for"" loop do?",Makes a decision,Defines a variable,Repeats a block of code,Prints text,Repeats a block of code
+What is a function?,A variable,A loop,A block of code that performs a specific task,A data type,A block of code that performs a specific task
+What is an array?,A single value,A collection of elements of the same type,A loop,A function,A collection of elements of the same type
+What is an object?,A primitive data type,A collection of key-value pairs,A loop,A function,A collection of key-value pairs
+What is a class?,An instance of an object,A blueprint for creating objects,A function,An array,A blueprint for creating objects
+What is an object instance?,A class,A function,A specific object created from a class,A loop,A specific object created from a class
+What is inheritance?,Creating a new variable,Defining a function,Creating a new class based on an existing class,Looping through an array,Creating a new class based on an existing class
+What is polymorphism?,Using different variables,Defining multiple functions,Using the same function name for different data types,Looping through different arrays,Using the same function name for different data types
+What is encapsulation?,Hiding data and methods within a class,Creating new classes,Defining functions,Looping,Hiding data and methods within a class
+What is abstraction?,Hiding complex details and showing only essential information,Creating new variables,Defining new functions,Looping through data,Hiding complex details and showing only essential information
+What is an operator?,A variable,A function,A symbol that performs an operation,A loop,A symbol that performs an operation
+What is the '+' operator used for?,Subtraction,Multiplication,Addition,Division,Addition
+What is the '-' operator used for?,Addition,Multiplication,Subtraction,Division,Subtraction
+What is the '*' operator used for?,Addition,Subtraction,Multiplication,Division,Multiplication
+What is the '/' operator used for?,Addition,Subtraction,Multiplication,Division,Division
+What is the '%' operator used for?,Addition,Subtraction,Remainder,Multiplication,Remainder
+What is the '==' operator used for?,Assignment,Comparison,Addition,Subtraction,Comparison
+What is the '!=' operator used for?,Assignment,Comparison,Addition,Subtraction,Comparison
+What is the '>' operator used for?,Assignment,Comparison,Addition,Subtraction,Comparison
+What is the '<' operator used for?,Assignment,Comparison,Addition,Subtraction,Comparison
+What is the '>=' operator used for?,Assignment,Comparison,Addition,Subtraction,Comparison
+What is the '<=' operator used for?,Assignment,Comparison,Addition,Subtraction,Comparison
+What is a comment?,A variable,A function,A line of code that is ignored by the compiler,A loop,A line of code that is ignored by the compiler
+What is a syntax error?,A logical error,A runtime error,An error in the grammar of the programming language,A function error,An error in the grammar of the programming language
+What is a logical error?,An error in the syntax,A runtime error,An error in the program's logic,A function error,An error in the program's logic
+What is a runtime error?,An error in the syntax,A logical error,An error that occurs during program execution,A function error,An error that occurs during program execution
+What is debugging?,Creating new variables,Defining functions,Finding and fixing errors in a program,Looping through data,Finding and fixing errors in a program
+What is pseudocode?,Actual code,A detailed algorithm,A high-level description of an algorithm,A type of variable,A high-level description of an algorithm
+What is a flowchart?,A type of variable,A type of function,A visual representation of an algorithm,A type of loop,A visual representation of an algorithm
+What is a compiler?,A program that translates source code into machine code,A program that runs code,A type of variable,A type of loop,A program that translates source code into machine code
+What is an interpreter?,A program that translates source code into machine code,A program that executes code line by line,A type of variable,A type of loop,A program that executes code line by line
+What is machine code?,Human readable code,High level language,Binary code,Pseudocode,Binary code
+What is source code?,Machine code,Binary code,Human readable code,Object code,Human readable code
+What is a library?,A collection of pre-written code,A type of variable,A type of loop,A function,A collection of pre-written code
+What is an API?,A type of variable,A type of function,A set of rules that allow software components to interact,A type of loop,A set of rules that allow software components to interact
+What is a data structure?,A type of variable,A way of organizing and storing data,A type of function,A type of loop,A way of organizing and storing data
+What is a stack?,A data structure with LIFO behavior,A data structure with FIFO behavior,An array,An object,A data structure with LIFO behavior
+What is a queue?,A data structure with LIFO behavior,A data structure with FIFO behavior,An array,An object,A data structure with FIFO behavior
+What is a linked list?,An array,A sequential data structure with nodes,A stack,A queue,A sequential data structure with nodes
+What is a tree?,A linear data structure,A hierarchical data structure,A queue,A stack,A hierarchical data structure
+What is a graph?,A linear data structure,A hierarchical data structure,A network of nodes and edges,A queue,A network of nodes and edges
+What is sorting?,Arranging data in a specific order,Deleting data,Adding data,Searching data,Arranging data in a specific order
+What is searching?,Arranging data,Deleting data,Finding a specific element in a data structure,Adding data,Finding a specific element in a data structure
+What is recursion?,A loop,A function that calls itself,A variable,A data type,A function that calls itself
+What is a base case in recursion?,The stopping condition,The starting condition,A variable,A function,The stopping condition
+What is a stack overflow?,A syntax error,A runtime error caused by excessive recursion,A logical error,A data type error,A runtime error caused by excessive recursion
+What is memory allocation?,Assigning variables,Assigning memory space,Deleting variables,Adding data,Assigning memory space
+What is memory deallocation?,Assigning variables,Assigning memory space,Releasing memory space,Adding data,Releasing memory space
+What is a pointer?,A variable that stores a memory address,A normal variable,A function,A loop,A variable that stores a memory address
+What is a file?,A type of variable,A collection of data stored on a storage device,A type of function,A type of loop,A collection of data stored on a storage device
+What is file input/output (I/O)?,Reading and writing to files,Creating variables,Defining functions,Looping,Reading and writing to files
+What is a database?,A type of variable,An organized collection of data,A type of function,A type of loop,An organized collection of data
+What is SQL?,A programming language,A database query language,A data type,A loop,A database query language
+What is a web server?,A type of variable,A computer that hosts websites,A type of function,A type of loop,A computer that hosts websites
+What is HTML?,A programming language,A markup language for creating web pages,A data type,A loop,A markup language for creating web pages
+What is CSS?,A programming language,A styling language for web pages,A data type,A loop,A styling language for web pages
+What is JavaScript?,A programming language for web pages,A markup language,A styling language,A database language,A programming language for web pages
+What is a framework?,A type of variable,A collection of libraries and tools,A type of function,A type of loop,A collection of libraries and tools
+What is version control?,Managing code changes,Deleting code,Adding code,Searching code,Managing code changes
+What is Git?,A programming language,A version control system,A data type,A loop,A version control system
+What is a repository?,A storage location for code,A function,A variable,A loop,A storage location for code
+What is a branch?,A copy of the code,A function,A variable,A loop,A copy of the code
+What is a merge?,Combining different branches,Deleting branches,Adding branches,Searching branches,Combining different branches
+What is a pull request?,A request to merge code,A request to delete code,A request to add code,A request to search code,A request to merge code
+What is a unit test?,Testing individual units of code,Testing the entire program,Testing the database,Testing the web server,Testing individual units of code
+What is integration testing?,Testing individual units,Testing how different components work together,Testing the database,Testing the web server,Testing how different components work together
+What is a deployment?,Releasing software,Deleting software,Adding software,Searching software,Releasing software
+What is a server?,A type of variable,A computer that provides services,A type of function,A type of loop,A computer that provides services
+What is a client?,A type of variable,A computer that requests services,A type of function,A type of loop,A computer that requests services
+What is a network?,A type of variable,A system of interconnected computers,A type of function,A type of loop,A system of interconnected computers
+What is an IP address?,A type of variable,A unique address that identifies a device on a network,A type of function,A type of loop,A unique address that identifies a device on a network
+What is a URL?,A type of variable,An address for a resource on the internet,A type of function,A type of loop,An address for a resource on the internet
+What is a port?,A type of variable,A communication endpoint,A type of function,A type of loop,A communication endpoint
+What is a protocol?,A type of variable,A set of rules for communication,A type of function,A type of loop,A set of rules for communication
+What is HTTP?,A protocol for transferring web pages,A protocol for transferring files,A protocol for sending emails,A protocol for database access,A protocol for transferring web pages
+What is HTTPS?,A secure version of HTTP,A protocol for transferring files,A protocol for sending emails,A protocol for database access,A secure version of HTTP
+What is a firewall?,A type of variable,A network security system,A type of function,A type of loop,A network security system
+What is encryption?,A type of variable,Converting data into a secret code,A type of function,A type of loop,Converting data into a secret code
