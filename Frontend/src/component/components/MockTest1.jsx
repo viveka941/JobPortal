@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Papa from "papaparse";
+import { useLocation } from "react-router-dom";
 
 export default function MockTest1() {
   const [data, setData] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [showAnswers, setShowAnswers] = useState({});
+  const location = useLocation();
+  const QuestionData = location.state.QuestionData;
+  console.log(QuestionData)
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("/mern.csv");
+      const response = await fetch(QuestionData);
       const text = await response.text();
       const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
       setData(parsed.data);
@@ -29,9 +33,9 @@ export default function MockTest1() {
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-10 text-center text-indigo-700 tracking-wide">
+      {/* <h1 className="text-3xl font-bold mb-10 text-center text-indigo-700 tracking-wide">
         🚀 MERN Stack Quiz
-      </h1>
+      </h1> */}
 
       {data.length > 0 ? (
         data.map((question, index) => {

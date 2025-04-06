@@ -6,9 +6,19 @@ import {
   FiClock,
   FiList,
 } from "react-icons/fi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+
 
 export default function Test() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const test = location.state?.test
+const QuestionData = test?.QuestionData
+  const handleSubmit =()=>{
+    navigate("/test/test1", {state:{QuestionData}})
+  }
+  
+  console.log(QuestionData)
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md">
       {/* Header Section */}
@@ -139,11 +149,10 @@ export default function Test() {
             <span>Confirmed identity documents</span>
           </label>
         </div>
-      <NavLink to="/test/test1">
-        <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
-          Start Assessment
-        </button>
-      </NavLink>
+        <button
+          onClick={handleSubmit}
+          className="mt-6 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-all"
+          > Start Test</button>
       </div>
     </div>
   );

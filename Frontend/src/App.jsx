@@ -88,7 +88,7 @@ function App() {
       element: <About />,
     },
     {
-      path: "/test/:id",
+      path: "/test",
       element: <Test />,
     },
     {

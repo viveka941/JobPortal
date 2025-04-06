@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
 
 export default function MockTest() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const navigate = useNavigate()
+  
 
   const mockTests = [
     {
@@ -20,6 +22,7 @@ export default function MockTest() {
       img: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
       progress: 65,
       highestScore: 82,
+      QuestionData: "/mern.csv",
     },
     {
       id: 2,
@@ -34,6 +37,7 @@ export default function MockTest() {
       img: "https://cdn-icons-png.flaticon.com/512/4712/4712043.png",
       progress: 40,
       highestScore: 68,
+      QuestionData: "/programming1.csv",
     },
     {
       id: 3,
@@ -48,6 +52,7 @@ export default function MockTest() {
       img: "https://cdn-icons-png.flaticon.com/512/3135/3135823.png",
       progress: 85,
       highestScore: 95,
+      QuestionData: "/pr.csv",
     },
     {
       id: 4,
@@ -62,6 +67,7 @@ export default function MockTest() {
       img: "https://cdn-icons-png.flaticon.com/512/4712/4712055.png",
       progress: 25,
       highestScore: 58,
+      QuestionData: "/mern.csv",
     },
   ];
 
@@ -76,9 +82,12 @@ export default function MockTest() {
     return matchesSearch && matchesCategory;
   });
 
+  const handleTestButton = (test) => {
+    navigate("/Test", { state: {test }});
+  };
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header Section */}
@@ -215,7 +224,7 @@ export default function MockTest() {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-2">
+                  {/* <div className="flex gap-2">
                     <Link
                       to={`/test/${test.id}`}
                       className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg text-center hover:bg-blue-700 transition-colors"
@@ -237,7 +246,14 @@ export default function MockTest() {
                         />
                       </svg>
                     </button>
-                  </div>
+                  </div> */}
+                 
+                  <button
+                    onClick={() => handleTestButton(test)}
+                    className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg text-center hover:bg-blue-700 transition-colors"
+                  >
+                    Start Test
+                  </button>
                 </div>
               </div>
             ))}
