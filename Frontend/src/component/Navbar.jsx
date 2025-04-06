@@ -182,6 +182,13 @@ export default function Navbar() {
                   >
                     Jobs
                   </NavLink>
+                  <NavLink
+                    to="/mocktest"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    MockTest
+                  </NavLink>
                 </>
               ) : (
                 // Mobile Links for Non-Recruiter
@@ -207,6 +214,14 @@ export default function Navbar() {
                   >
                     Jobs
                   </NavLink>
+                  <NavLink
+                    to="/mocktest"
+                    className="block px-4 py-2 text-gray-700 hover:bg-blue-100 rounded-md"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    MockTest
+                  </NavLink>
+
                   {!user && (
                     <NavLink
                       to="/register"
