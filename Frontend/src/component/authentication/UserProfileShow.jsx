@@ -48,7 +48,7 @@ export default function UserProfileShow() {
             onClick={() => setOpenEdit(true)}
             className="bg-blue-300 p-2 rounded-full hover:bg-gray-400 transition"
           >
-            ✒️
+            ✒
             <span className="text-black">Edit Profile</span>
           </button>
         </div>
