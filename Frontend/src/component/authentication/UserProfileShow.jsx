@@ -145,7 +145,7 @@ export default function UserProfileShow() {
 
       {/* Edit Profile Modal */}
       <EditProfileModel open={openEdit} setOpen={setOpenEdit} />
-      <div className="fixed top-20 right-4">{/* <ChatBot /> */}</div>
+      <div className="fixed top-20 right-4"><ChatBot /></div>
     </div>
   );
 }
