@@ -23,12 +23,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// Secure OpenAI configuration
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, 
-});
 
-// Chatbot endpoint
 
 // API Routes
 app.use("/api/users", userRouter);
