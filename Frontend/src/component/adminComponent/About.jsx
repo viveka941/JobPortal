@@ -7,10 +7,8 @@ export default function About() {
       name: "Vivek Kumar Chaurasiya",
       role: "Team Lead / Full-Stack Developer",
     },
-    { name: "Ankita Sharma", role: "Frontend Developer (React.js)" },
-    { name: "Rahul Verma", role: "Backend Developer (Node.js, Express)" },
-    { name: "Priya Singh", role: "UI/UX Designer" },
-    { name: "Aditya Mehra", role: "Database Administrator (MongoDB & MySQL)" },
+    { name: "Akash Dhot", role: "UI/UX Designer" },
+   
   ];
 
   return (
@@ -59,27 +57,64 @@ export default function About() {
             </h2>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
               <li>
-                <strong>Frontend:</strong> React.js, Tailwind CSS, Redux
+                <strong>Frontend:</strong> React.js, Tailwind CSS, Redux,
+                Bootstrap
               </li>
               <li>
-                <strong>Backend:</strong> Node.js, Express.js
+                <strong>Backend:</strong> Node.js, Express.js, Spring Boot
               </li>
               <li>
                 <strong>Database:</strong> MongoDB, MySQL
               </li>
               <li>
-                <strong>Authentication:</strong> JWT (JSON Web Token)
+                <strong>Authentication:</strong> JWT, Passport.js
               </li>
               <li>
                 <strong>Hosting:</strong> Render / Vercel (Frontend), Railway /
-                Render (Backend)
+                Render / Firebase (Backend)
+              </li>
+              <li>
+                <strong>Version Control:</strong> Git, GitHub
               </li>
             </ul>
           </section>
 
           <section className="mb-10">
+            <h2 className="text-2xl font-semibold mb-3 text-blue-600">
+              👨‍💻 About the Lead Developer
+            </h2>
+            <div className="bg-blue-50 p-6 rounded-lg shadow-sm">
+              <p className="text-md mb-2">
+                <strong className="text-blue-700">
+                  Vivek Kumar Chaurasiya
+                </strong>{" "}
+                is a passionate Full-Stack Developer from Gorakhpur, Uttar
+                Pradesh. Currently pursuing MCA at LPU, he brings a wide array
+                of skills to the project, including:
+              </p>
+              <ul className="list-disc list-inside space-y-1">
+                <li>
+                  Frontend: HTML, CSS, JavaScript, React.js, Tailwind CSS,
+                  Bootstrap
+                </li>
+                <li>
+                  Backend: Node.js, Express.js, Java (Core + Swing), Spring Boot
+                </li>
+                <li>Database: MySQL, MongoDB</li>
+                <li>
+                  Tools & Platforms: GitHub, Firebase, Render, Railway, Vercel
+                </li>
+                <li>
+                  Other Skills: API integration, Redux, Authentication,
+                  Full-Stack architecture
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <section className="mb-10">
             <h2 className="text-2xl font-semibold mb-4 text-blue-600">
-              👨‍💻 Meet the Development Team
+              👥 Meet the Development Team
             </h2>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
               {team.map((member, index) => (
