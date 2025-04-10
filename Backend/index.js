@@ -8,7 +8,6 @@ import userRouter from "./routes/user.route.js";
 import companyRouter from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
-import { chatBot } from "./controllers/chatBot.controller.js";
 
 dotenv.config();
 const app = express();
@@ -30,7 +29,6 @@ const openai = new OpenAI({
 });
 
 // Chatbot endpoint
-app.post("/api/chatbot", chatBot)
 
 // API Routes
 app.use("/api/users", userRouter);
