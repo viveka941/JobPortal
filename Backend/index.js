@@ -1,4 +1,3 @@
-import OpenAI from "openai";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -8,7 +7,6 @@ import userRouter from "./routes/user.route.js";
 import companyRouter from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
-import { chatBot } from "./controllers/chatBot.controller.js";
 
 dotenv.config();
 const app = express();
@@ -24,15 +22,10 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// Secure OpenAI configuration
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, 
-});
-
-// Chatbot endpoint
-app.post("/api/chatbot", chatBot)
-
 // API Routes
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
 app.use("/api/users", userRouter);
 app.use("/api/company", companyRouter);
 app.use("/api/job", jobRoute);
