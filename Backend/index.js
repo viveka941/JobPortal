@@ -20,6 +20,7 @@ const corsOptions = {
   origin: ["https://job-portal-green-mu.vercel.app"],
   credentials: true,
 };
+app.use(cors(corsOptions)); 
 app.options("*", cors(corsOptions));
 
 
