@@ -16,7 +16,7 @@ export default function Companies() {
   }, [input]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-200 via-white-50 to-purple-300">
+    <div className="min-h-screen bg-gradient-to-br from-blue-200 via-white-50 to-purple-50">
       <Navbar />
       <div className="max-w-6xl mx-auto my-10">
         <div className="flex justify-between items-center my-5">
