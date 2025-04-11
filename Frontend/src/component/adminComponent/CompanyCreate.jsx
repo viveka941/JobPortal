@@ -40,9 +40,9 @@ export default function CompanyCreate() {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-blue-300 via-white to-purple-300">
       <Navbar />
-      <div className="max-w-2xl mx-auto my-10 bg-white shadow-lg rounded-lg p-8">
+      <div className="max-w-2xl mx-auto my-10  hover:shadow-xl hover:shadow-blue-300  bg-white shadow-lg rounded-lg p-8">
         <h1 className="text-3xl font-semibold text-gray-800 text-center mb-6">
           Create a Company
         </h1>
