@@ -17,12 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: ["https://job-portal-green-mu.vercel.app"],
+  origin: ["http://localhost:5173"],
   credentials: true,
 };
-app.use(cors(corsOptions)); 
-app.options("*", cors(corsOptions));
-
+app.use(cors(corsOptions));
 
 // API Routes
 app.get("/", (req, res) => {
