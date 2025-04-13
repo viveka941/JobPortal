@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import UserGetAllJobs from "../hook/UserGetAllJobs"; // ✅ Ensure correct import path
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Testmonials from "./components/Testmonials";
 
 export default function Home() {
   const {user} = useSelector((store)=>store.auth)
@@ -28,6 +29,7 @@ export default function Home() {
       <Header />
       <Categories />
       <LatestJobs />
+      <Testmonials/>
       <Footer />
     </div>
   );

@@ -21,6 +21,7 @@ import About from "./component/adminComponent/About";
 import MockTest from "./component/components/MockTest";
 import Test from "./component/components/Test";
 import MockTest1 from "./component/components/MockTest1";
+import Testimonials from "./component/components/Testmonials";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -95,6 +96,10 @@ function App() {
       path: "/test/test1",
       element:<MockTest1/>
     },
+    {
+      path:"/Feedback",
+      element:<Testimonials/>
+    }
   ]);
   return <RouterProvider router={appRouter}></RouterProvider>;
 }

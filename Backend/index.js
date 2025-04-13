@@ -21,10 +21,14 @@ const corsOptions = {
   credentials: true,
 };
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Preflight request for all routes
+
 
 // API Routes
 app.get("/", (req, res) => {
   res.send("API is running...");
+
+
 });
 app.use("/api/users", userRouter);
 app.use("/api/company", companyRouter);
@@ -34,5 +38,6 @@ app.use("/api/application", applicationRoute);
 const PORT = process.env.PORT || 8001;
 app.listen(PORT, () => {
   connectDB();
+
   console.log(`Server running on port ${PORT}`);
 });
