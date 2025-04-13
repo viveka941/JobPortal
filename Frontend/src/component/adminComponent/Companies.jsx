@@ -16,7 +16,7 @@ export default function Companies() {
   }, [input]);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-200 via-white-50 to-purple-50">
       <Navbar />
       <div className="max-w-6xl mx-auto my-10">
         <div className="flex justify-between items-center my-5">
@@ -36,7 +36,7 @@ export default function Companies() {
           </div>
           <button
             onClick={() => navigate("/admin/companies/create")}
-            className="ml-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors duration-200 flex items-center"
+            className="ml-4 bg-blue-700 hover:bg-green-500 text-white px-4 py-2 rounded-md transition-colors duration-200 flex items-center"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />

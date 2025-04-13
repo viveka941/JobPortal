@@ -83,27 +83,29 @@ export default function AddDetails({ userId }) {
   const educationLevel = watch("education");
 
   return (
-    <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-lg p-8 mt-10 border border-gray-200">
-      <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
+    <div className="max-w-4xl mx-auto bg-gradient-to-br from-white to-blue-50 shadow-2xl rounded-xl p-6 sm:p-8 mt-6 sm:mt-10 border border-blue-100">
+      <h2 className="text-3xl font-bold mb-6 sm:mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
         Professional Profile Setup
       </h2>
 
       {serverError && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4">
-          {serverError}
+        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded mb-4 animate-pulse">
+          <p className="font-medium">Error</p>
+          <p>{serverError}</p>
         </div>
       )}
 
       {success && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-4">
-          {success}
+        <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded mb-4 animate-pulse">
+          <p className="font-medium">Success</p>
+          <p>{success}</p>
         </div>
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Personal Information Section */}
-        <div className="bg-gray-50 p-6 rounded-lg">
-          <h3 className="text-xl font-semibold mb-4 text-gray-700">
+        <div className="bg-white p-5 sm:p-6 rounded-lg shadow-md border border-blue-100 hover:shadow-lg transition-all duration-300">
+          <h3 className="text-xl font-semibold mb-4 text-blue-700 border-b border-blue-200 pb-2">
             Personal Information
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -113,7 +115,7 @@ export default function AddDetails({ userId }) {
               </label>
               <input
                 {...register("userName", { required: "Full name is required" })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-400"
               />
               {errors.userName && (
                 <p className="text-red-500 text-sm mt-1">
@@ -143,7 +145,7 @@ export default function AddDetails({ userId }) {
                     message: "Invalid phone number (must be 10 digits)",
                   },
                 })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-400"
                 placeholder="1234567890"
               />
               {errors.phone && (
@@ -158,7 +160,7 @@ export default function AddDetails({ userId }) {
               </label>
               <textarea
                 {...register("address")}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-400"
                 rows="2"
               ></textarea>
             </div>
@@ -166,8 +168,8 @@ export default function AddDetails({ userId }) {
         </div>
 
         {/* Education Section */}
-        <div className="bg-gray-50 p-6 rounded-lg">
-          <h3 className="text-xl font-semibold mb-4 text-gray-700">
+        <div className="bg-white p-5 sm:p-6 rounded-lg shadow-md border border-blue-100 hover:shadow-lg transition-all duration-300">
+          <h3 className="text-xl font-semibold mb-4 text-blue-700 border-b border-blue-200 pb-2">
             Education Details
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -177,7 +179,7 @@ export default function AddDetails({ userId }) {
               </label>
               <select
                 {...register("education")}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-400"
               >
                 <option value="">Select Education Level</option>
                 <option value="Masters">Master's Degree</option>
@@ -197,7 +199,7 @@ export default function AddDetails({ userId }) {
                     {...register("masterDegree", {
                       required: "Master's degree is required",
                     })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-400"
                   />
                   {errors.masterDegree && (
                     <p className="text-red-500 text-sm mt-1">
@@ -215,7 +217,7 @@ export default function AddDetails({ userId }) {
                       min: { value: 1900, message: "Invalid year" },
                       max: { value: 2099, message: "Invalid year" },
                     })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-400"
                   />
                   {errors.masterYear && (
                     <p className="text-red-500 text-sm mt-1">
@@ -232,7 +234,7 @@ export default function AddDetails({ userId }) {
               </label>
               <input
                 {...register("graduationDegree")}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-400"
               />
             </div>
             <div>
@@ -244,7 +246,7 @@ export default function AddDetails({ userId }) {
                   min: { value: 1900, message: "Invalid year" },
                   max: { value: 2099, message: "Invalid year" },
                 })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-400"
               />
               {errors.graduationYear && (
                 <p className="text-red-500 text-sm mt-1">
@@ -256,8 +258,8 @@ export default function AddDetails({ userId }) {
         </div>
 
         {/* Academic History */}
-        <div className="bg-gray-50 p-6 rounded-lg">
-          <h3 className="text-xl font-semibold mb-4 text-gray-700">
+        <div className="bg-white p-5 sm:p-6 rounded-lg shadow-md border border-blue-100 hover:shadow-lg transition-all duration-300">
+          <h3 className="text-xl font-semibold mb-4 text-blue-700 border-b border-blue-200 pb-2">
             Academic History
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -270,7 +272,7 @@ export default function AddDetails({ userId }) {
                   min: { value: 0, message: "Invalid percentage" },
                   max: { value: 100, message: "Invalid percentage" },
                 })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-400"
               />
               {errors.class12 && (
                 <p className="text-red-500 text-sm mt-1">
@@ -287,7 +289,7 @@ export default function AddDetails({ userId }) {
                   min: { value: 0, message: "Invalid percentage" },
                   max: { value: 100, message: "Invalid percentage" },
                 })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-400"
               />
               {errors.class10 && (
                 <p className="text-red-500 text-sm mt-1">
@@ -299,8 +301,8 @@ export default function AddDetails({ userId }) {
         </div>
 
         {/* Professional Development */}
-        <div className="bg-gray-50 p-6 rounded-lg">
-          <h3 className="text-xl font-semibold mb-4 text-gray-700">
+        <div className="bg-white p-5 sm:p-6 rounded-lg shadow-md border border-blue-100 hover:shadow-lg transition-all duration-300">
+          <h3 className="text-xl font-semibold mb-4 text-blue-700 border-b border-blue-200 pb-2">
             Professional Development
           </h3>
           <div className="space-y-4">
@@ -312,7 +314,7 @@ export default function AddDetails({ userId }) {
                 {...register("technicalSkill", {
                   required: "Technical skills are required",
                 })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-400"
                 placeholder="e.g., JavaScript, React, Node.js"
               />
               {errors.technicalSkill && (
@@ -328,8 +330,8 @@ export default function AddDetails({ userId }) {
               </label>
               <input
                 {...register("experience")}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                rows="3" placeholder="exprience year in number "
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-400"
+                rows="3" placeholder="Experience in years"
               ></input>
             </div>
 
@@ -340,14 +342,14 @@ export default function AddDetails({ userId }) {
               {fields.map((field, index) => (
                 <div
                   key={field.id}
-                  className="border border-gray-200 p-4 rounded-lg mb-4 bg-white"
+                  className="border border-blue-200 p-4 rounded-lg mb-4 bg-white shadow-sm hover:shadow-md transition-all duration-300"
                 >
                   <input
                     {...register(`certification.${index}.name`, {
                       required: "Certification name is required",
                     })}
                     placeholder="Certification Name"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 mb-3"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 mb-3 transition-all duration-300 hover:border-blue-400"
                   />
                   {errors.certification?.[index]?.name && (
                     <p className="text-red-500 text-sm mt-1">
@@ -360,7 +362,7 @@ export default function AddDetails({ userId }) {
                       required: "Certification language is required",
                     })}
                     placeholder="Certification Language"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 mb-3"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 mb-3 transition-all duration-300 hover:border-blue-400"
                   />
                   {errors.certification?.[index]?.language && (
                     <p className="text-red-500 text-sm mt-1">
@@ -373,7 +375,7 @@ export default function AddDetails({ userId }) {
                     {...register(`certification.${index}.date`, {
                       required: "Certification date is required",
                     })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:border-blue-400"
                   />
                   {errors.certification?.[index]?.date && (
                     <p className="text-red-500 text-sm mt-1">
@@ -385,7 +387,7 @@ export default function AddDetails({ userId }) {
               <button
                 type="button"
                 onClick={() => append({ name: "", language: "", date: "" })}
-                className="mt-2 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
+                className="mt-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-2 px-4 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
               >
                 + Add Certification
               </button>
@@ -394,13 +396,13 @@ export default function AddDetails({ userId }) {
         </div>
 
         {/* Achievements */}
-        <div className="bg-gray-50 p-6 rounded-lg">
-          <h3 className="text-xl font-semibold mb-4 text-gray-700">
+        <div className="bg-white p-5 sm:p-6 rounded-lg shadow-md border border-blue-100 hover:shadow-lg transition-all duration-300">
+          <h3 className="text-xl font-semibold mb-4 text-blue-700 border-b border-blue-200 pb-2">
             Achievements
           </h3>
           <textarea
             {...register("achievement")}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-400"
             rows="3"
           ></textarea>
         </div>
@@ -409,10 +411,10 @@ export default function AddDetails({ userId }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full py-3 rounded-lg font-semibold text-white transition duration-300 ${
+          className={`w-full py-3 rounded-lg font-semibold text-white transition duration-300 transform hover:scale-105 shadow-md hover:shadow-lg ${
             isSubmitting
               ? "bg-gray-400 cursor-not-allowed"
-              : "bg-green-600 hover:bg-green-700"
+              : "bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700"
           }`}
         >
           {isSubmitting ? "Submitting..." : "Complete Profile"}

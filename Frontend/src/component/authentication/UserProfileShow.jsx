@@ -136,9 +136,9 @@ export default function UserProfileShow() {
         <UserData userId={user?._id} />
       </div>
 
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl">
+      {/* <div className="max-w-4xl mx-auto bg-white rounded-2xl">
         <div className="text-md font-bold">Applied Jobs</div>
-      </div>
+      </div> */}
 
       {/* Applied Jobs Table */}
       <ApplidJob />

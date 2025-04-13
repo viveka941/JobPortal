@@ -68,12 +68,14 @@ const PostJob = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-300 via-white to-purple-300">
       <Navbar />
       <div className="flex items-center justify-center w-screen my-5">
         <form
+        
           onSubmit={submitHandler}
-          className="p-8 max-w-4xl border border-gray-500 shadow-sm hover:shadow-xl hover:shadow-red-300 rounded-lg"
+          
+          className="p-8 max-w-4xl border border-gray-500 shadow-sm hover:shadow-xl hover:shadow-blue-300 rounded-lg bg-white"
         >
           <div className="grid grid-cols-2 gap-5">
             {[
@@ -99,13 +101,13 @@ const PostJob = () => {
               { name: "jobType", placeholder: "Enter job type" },
             ].map(({ name, placeholder, type = "text" }) => (
               <div key={name}>
-                <label>{name.charAt(0).toUpperCase() + name.slice(1)}</label>
+                <label className="font-medium text-gray-700">{name.charAt(0).toUpperCase() + name.slice(1)}</label>
                 <input
                   type={type}
                   name={name}
                   value={input[name]}
                   placeholder={placeholder}
-                  className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1 hover:shadow-blue-400 w-full p-2 border rounded"
+                  className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1 w-full p-2 border rounded bg-white transition-all duration-300 hover:border-blue-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   onChange={changeEventHandler}
                 />
               </div>
@@ -113,11 +115,11 @@ const PostJob = () => {
 
             {/* Company Selection */}
             <div>
-              <label>Company</label>
+              <label className="font-medium text-gray-700">Company</label>
               <select
                 value={input.companyId}
                 onChange={selectChangeHandler}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded bg-white transition-all duration-300 hover:border-blue-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               >
                 <option value="">Select a Company</option>
                 {companies.map((company) => (
