@@ -15,7 +15,7 @@ const UseGetAllAdminJobs = () => {
       setError(null);
       try {
         const res = await axios.get(
-          "https://job-portal-l3ce.vercel.app/api/job/getadminjobs",
+          "http://localhost:8000/api/job/getadminjobs",
           {
             withCredentials: true,
           }

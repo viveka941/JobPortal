@@ -38,7 +38,7 @@ function App() {
       element: <Register />,
     },
     { path: "/termsofService", element: <TermsofService /> },
-    { path: "PrivacyPolicy", element: <PrivacyPolicy /> },
+    { path: "/PrivacyPolicy", element: <PrivacyPolicy /> },
     {
       path: "/jobs",
       element: <Jobs />,
@@ -94,12 +94,12 @@ function App() {
     },
     {
       path: "/test/test1",
-      element:<MockTest1/>
+      element: <MockTest1 />,
     },
     {
-      path:"/Feedback",
-      element:<Testimonials/>
-    }
+      path: "/feedback",
+      element: <Testimonials />,
+    },
   ]);
   return <RouterProvider router={appRouter}></RouterProvider>;
 }
