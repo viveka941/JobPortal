@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 export default function FeedBackForm() {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const [message, setMessage] = useState();
- 
+
   const {
     register,
     handleSubmit,
@@ -32,7 +32,7 @@ export default function FeedBackForm() {
       console.log("Server Response:", response);
       setMessage(response.data.message);
       reset();
-      navigate("/home"); 
+      navigate("/");
     } catch (error) {
       // Handle error
       console.error("Error submitting feedback:", error);

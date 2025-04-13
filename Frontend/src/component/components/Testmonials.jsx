@@ -6,6 +6,13 @@ import axios from "axios";
 export default function Testimonials() {
   const [showForm, setShowForm] = useState(false);
   const [data, setData] = useState([]); // Initialize as empty array
+  const daysAgo = (mongodbTime) => {
+    const today = new Date();
+    const postedDate = new Date(mongodbTime);
+    const diffTime = Math.abs(today - postedDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,30 +47,37 @@ export default function Testimonials() {
           data.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white rounded-3xl shadow-md p-6 relative overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300"
+              className="bg-gradient-to-tr from-white via-blue-50 to-white rounded-2xl shadow-lg p-6 relative overflow-hidden border border-gray-200 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
             >
-              {/* Header: Avatar + Name + Rating */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-4">
-                  <div className="bg-blue-100 p-3 rounded-full">
-                    <FaUserCircle className="text-3xl text-blue-600" />
+              {/* Header: Avatar + Name + Time + Rating */}
+              <div className="flex items-center justify-between mb-6">
+                {/* Avatar + Name */}
+                <div className="flex items-center gap-3">
+                  <div className="bg-blue-200 p-3 rounded-full shadow-inner">
+                    <FaUserCircle className="text-3xl text-blue-700" />
                   </div>
-                  <h3 className="text-lg font-semibold text-blue-800">
-                    {testimonial.name}
-                  </h3>
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold text-blue-900">
+                      {testimonial.name}
+                    </h3>
+                    <p className="text-xs text-gray-400 mt-0.5">
+                      {daysAgo(testimonial.createdAt) === 0
+                        ? "Today"
+                        : `${daysAgo(testimonial.createdAt)} days ago`}
+                    </p>
+                  </div>
                 </div>
 
-                {/* Rating */}
-                <div className="bg-yellow-100 text-yellow-800 font-semibold text-sm px-3 py-1 rounded-full inline-flex items-center gap-1 shadow-sm">
+                {/* Rating Badge */}
+                <div className="bg-yellow-200 text-yellow-900 font-bold text-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
                   <span>⭐</span> {testimonial.rating}
                 </div>
               </div>
 
-              {/* Content */}
-              <p className="text-sm text-gray-500 font-medium mb-2 italic">
+              {/* Experience Content */}
+              <p className="text-gray-600 text-[15px] leading-relaxed italic">
                 “{testimonial.userExperience}”
               </p>
-              
             </div>
           ))
         ) : (
