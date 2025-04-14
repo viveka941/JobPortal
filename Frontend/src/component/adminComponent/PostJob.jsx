@@ -79,7 +79,7 @@ const PostJob = () => {
         >
           <div className="grid grid-cols-2 gap-5">
             {[
-              { name: "title", placeholder: "Enter job title if non it plesae metion" },
+              { name: "title", placeholder: "Enter job title if 'non IT' please mention" },
               { name: "description", placeholder: "Enter job description" },
               { name: "location", placeholder: "Enter job location" },
               {

@@ -122,3 +122,35 @@ export const getAdminJob = async (req, res) => {
     });
   }
 };
+
+
+export const deleteJob = async(req,res)=>{
+  try {
+      const {jobId} = req.params;
+      if(!jobId){
+        return res.status(400).json({
+          message:"not find Job",
+          success:"false"
+        })
+      }
+      
+      const deletedJob = await Job.findByIdAndDelete( jobId );
+      if (!deletedJob) {
+        return res.status(404).json({
+          message: "Job not found",
+          success: false,
+        });
+      }
+       return res.status(200).json({
+        message :"successfull deleted job",
+        success:true
+       })
+
+  } catch (error) {
+     console.error(error);
+     return res.status(500).json({
+       message: "Sever error ",
+       status: false,
+     });
+  }
+}
