@@ -17,7 +17,7 @@ const categories = [
   "Graphics Engineer",
   "Graphics Designer",
   "Video Editor",
-  "Non IT fields", // This will have a different color
+  "Non IT ", // This will have a different color
 ];
 
 export default function Categories() {
