@@ -17,7 +17,7 @@ export default function CompanyCreate() {
   const registerNewCompany = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/company/register",
+        "https://jobportal-8pxk.onrender.com/api/company/register",
         { companyName, description, website },
         {
           headers: {

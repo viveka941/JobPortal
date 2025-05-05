@@ -39,7 +39,7 @@ const AdminJobsTable = () => {
 console.log(_id._id)
     try {
       const res = await axios.delete(
-        `http://localhost:8000/api/job/deleteJob/${_id._id}`
+        `https://jobportal-8pxk.onrender.com/api/job/deleteJob/${_id._id}`
       );
       setJobMsg(res.data.message);
     } catch (error) {
