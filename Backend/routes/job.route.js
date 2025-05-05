@@ -13,6 +13,6 @@ router.route("/post").post(authenticationToken, postJob);
 router.route("/get").get(authenticationToken, getAllJobs);
 router.route("/getadminjobs").get(authenticationToken, getAdminJob);
 router.route("/get/:id").get(authenticationToken, getJobById);
-router.route("/deleteJob/:id").delete(deleteJob)
+router.route("/deleteJob/:id").delete(deleteJob);
 
 export default router;
