@@ -19,7 +19,7 @@ export default function Testimonials() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/users/allfeedback"
+          "https://jobportal-8pxk.onrender.com/api/users/allfeedback"
         );
         console.log(response.data.data); // Log the response to check structure
         setData(response.data.data); // Set feedback data to state
