@@ -25,6 +25,6 @@ router.route("/addDetails/:id").post(userDetailsData);
 router.route("/getUserDetails/:id").get(getUserDetails);
 router.route("/updateDetails/:id").put(updateUserDetails);
 router.route("/feedback").post(feedback);
-router.route("/allfeedback").get(allFeedback);
+router.route("/allfeedback").get(authenticationToken, allFeedback);
 
 export default router;
