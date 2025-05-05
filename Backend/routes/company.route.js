@@ -10,11 +10,11 @@ import { singleUpload } from "../middleware/multer.js";
 
 const router = express.Router();
 
-router.route("/register").post(authenticationToken,registerCompnay);
-router.route("/get").get(authenticationToken,getAllCompanies)
-router.route("/get/:id").get(authenticationToken,getCompanyById);
+router.route("/register").post(registerCompnay);
+router.route("/get").get(getAllCompanies)
+router.route("/get/:id").get(getCompanyById);
 router
   .route("/update/:id")
-  .put(authenticationToken, singleUpload, updateCompany);
+  .put( singleUpload, updateCompany);
 
 export default router;

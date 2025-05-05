@@ -20,11 +20,11 @@ router.route("/login").post(login);
 router.route("/logout").post(logout);
 router
   .route("/profile/update")
-  .post(authenticationToken, singleUpload, updateProfile);
+  .post( singleUpload, updateProfile);
 router.route("/addDetails/:id").post(userDetailsData);
 router.route("/getUserDetails/:id").get(getUserDetails);
 router.route("/updateDetails/:id").put(updateUserDetails);
 router.route("/feedback").post(feedback);
-router.route("/allfeedback").get(authenticationToken, allFeedback);
+router.route("/allfeedback").get( allFeedback);
 
 export default router;

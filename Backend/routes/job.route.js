@@ -9,10 +9,10 @@ import {
 } from "../controllers/job.controller.js";
 const router = express.Router();
 
-router.route("/post").post(authenticationToken, postJob);
-router.route("/get").get(authenticationToken, getAllJobs);
-router.route("/getadminjobs").get(authenticationToken, getAdminJob);
-router.route("/get/:id").get(authenticationToken, getJobById);
+router.route("/post").post( postJob);
+router.route("/get").get( getAllJobs);
+router.route("/getadminjobs").get( getAdminJob);
+router.route("/get/:id").get( getJobById);
 router.route("/deleteJob/:id").delete(deleteJob);
 
 export default router;
