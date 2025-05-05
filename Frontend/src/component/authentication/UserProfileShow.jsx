@@ -48,8 +48,7 @@ export default function UserProfileShow() {
             onClick={() => setOpenEdit(true)}
             className="bg-blue-300 p-2 rounded-full hover:bg-gray-400 transition"
           >
-            ✒
-            <span className="text-black">Edit Profile</span>
+            ✒<span className="text-black">Edit Profile</span>
           </button>
         </div>
 
@@ -145,7 +144,7 @@ export default function UserProfileShow() {
 
       {/* Edit Profile Modal */}
       <EditProfileModel open={openEdit} setOpen={setOpenEdit} />
-      <div className="fixed top-20 right-4"><ChatBot /></div>
+      {/* <div className="fixed top-20 right-4"><ChatBot /></div> */}
     </div>
   );
 }
