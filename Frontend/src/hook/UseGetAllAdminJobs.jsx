@@ -15,7 +15,7 @@ const UseGetAllAdminJobs = () => {
       setError(null);
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/job/getadminjobs",
+          "https://jobportal-8pxk.onrender.com/api/job/getadminjobs",
           {
             withCredentials: true,
           }
