@@ -164,7 +164,7 @@ export default function Register() {
                 type="submit"
                 className="block w-full py-3 text-white bg-prmiary hover:bg-prmiary/90 rounded-md bg-blue-600"
               >
-                Login now
+                Register now
               </button>
             )}
 
