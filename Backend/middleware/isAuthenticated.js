@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
-const authenticationToken = (req,res,next) =>{
+const authenticationToken = (req, res, next) => {
   try {
     const token = req.cookies.token;
     if (!token) {
@@ -19,8 +19,8 @@ const authenticationToken = (req,res,next) =>{
     req.id = decoded.userId; // Store user ID in request
     next();
   } catch (error) {
-    return res.status(401).json({message:"Inavalid token"})
+    return res.status(401).json({ message: "Inavalid token" });
   }
-}
+};
 
-export default  authenticationToken;
+export default authenticationToken;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UpdateDetails from "./UpdateDetails";
+import axios from "axios";
 
 export default function UserData({ userId }) {
   const [user, setUser] = useState(null);
@@ -8,7 +9,7 @@ export default function UserData({ userId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch(`https://localhosthost:8000/api/users/getUserDetails/${userId}`)
+    fetch(`http://localhost:8000/api/users/getUserDetails/${userId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
@@ -23,6 +24,8 @@ export default function UserData({ userId }) {
         setError(err.message);
         setLoading(false);
       });
+
+ 
   }, [userId]);
 
   if (loading)
