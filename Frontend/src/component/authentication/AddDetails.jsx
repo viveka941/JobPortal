@@ -57,7 +57,7 @@ export default function AddDetails({ userId }) {
       };
 
       const res = await axios.post(
-        `https://jobportal-8pxk.onrender.com/api/users/addDetails/${userId}`,
+        `https://localhosthost:8000/api/users/addDetails/${userId}`,
         updatedData,
         {
           headers: { "Content-Type": "application/json" },

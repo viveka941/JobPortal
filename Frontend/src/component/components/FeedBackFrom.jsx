@@ -20,7 +20,7 @@ export default function FeedBackForm() {
 
     try {
       const response = await axios.post(
-        "https://jobportal-8pxk.onrender.com/api/users/feedback",
+        "https://localhosthost:8000/api/users/feedback",
         data, // Pass the data to be submitted in the request body
         {
           headers: {

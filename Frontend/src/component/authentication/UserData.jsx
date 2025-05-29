@@ -8,9 +8,7 @@ export default function UserData({ userId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch(
-      `https://jobportal-8pxk.onrender.com/api/users/getUserDetails/${userId}`
-    )
+    fetch(`https://localhosthost:8000/api/users/getUserDetails/${userId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
